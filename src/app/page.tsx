@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <main className="container">
+    <section className="container">
       <h1>PsyConnect</h1>
-    </main>
+    </section>
   );
 }
