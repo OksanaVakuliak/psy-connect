@@ -1,12 +1,23 @@
 import type { PsychologistsQuery } from '@/types';
 
+const PSYCHOLOGISTS_ROOT = ['psychologists'] as const;
+const FAVORITES_ROOT = ['favorites'] as const;
+const SESSION_ROOT = ['session'] as const;
+const CURRENT_USER_ROOT = ['currentUser'] as const;
+
 export const queryKeys = {
   psychologists: {
-    all: ['psychologists'] as const,
-    list: (query: PsychologistsQuery) => ['psychologists', 'list', query] as const,
-    detail: (id: string) => ['psychologists', 'detail', id] as const,
+    all: PSYCHOLOGISTS_ROOT,
+    list: (query: PsychologistsQuery) => [...PSYCHOLOGISTS_ROOT, 'list', query] as const,
+    detail: (id: string) => [...PSYCHOLOGISTS_ROOT, 'detail', id] as const,
   },
-  favorites: ['favorites'] as const,
-  session: ['session'] as const,
-  currentUser: ['currentUser'] as const,
-};
+  favorites: {
+    all: FAVORITES_ROOT,
+  },
+  session: {
+    all: SESSION_ROOT,
+  },
+  currentUser: {
+    all: CURRENT_USER_ROOT,
+  },
+} as const;
