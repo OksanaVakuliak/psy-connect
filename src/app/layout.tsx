@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
+import Providers from '@/components/Providers/Providers';
 import 'modern-normalize/modern-normalize.css';
 import './globals.css';
 
@@ -18,7 +19,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={manrope.variable}>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
