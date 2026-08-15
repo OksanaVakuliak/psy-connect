@@ -1,17 +1,10 @@
 import type { Metadata } from 'next';
-import { Manrope } from 'next/font/google';
 import Footer from '@/components/Footer/Footer';
 import Providers from '@/components/Providers/Providers';
+import { manrope } from './fonts';
 import 'modern-normalize/modern-normalize.css';
 import './globals.css';
 import styles from './layout.module.css';
-
-const manrope = Manrope({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-  variable: '--font-manrope',
-});
 
 export const metadata: Metadata = {
   title: {

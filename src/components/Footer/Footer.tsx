@@ -14,6 +14,8 @@ const SOCIAL_LINKS = [
 ];
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
@@ -22,7 +24,7 @@ export default function Footer() {
           PsyConnect
         </Link>
 
-        <p className={styles.copyright}>&copy; 2025 PsyConnect. All rights reserved.</p>
+        <p className={styles.copyright}>&copy; {currentYear} PsyConnect. All rights reserved.</p>
 
         <ul className={styles.socials}>
           {SOCIAL_LINKS.map(({ label, href, Icon }) => (
