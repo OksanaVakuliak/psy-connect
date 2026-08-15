@@ -22,19 +22,19 @@ The interface is desktop-only: the reference layout is 1440px wide and the minim
 
 ## Tech stack
 
-| Area | Technology |
-| --- | --- |
-| Framework | Next.js 16 (App Router), React 19 |
-| Language | TypeScript |
-| Styling | CSS Modules, modern-normalize |
-| Data fetching | TanStack Query v5 (`useInfiniteQuery` for pagination) |
-| State management | Zustand v5 |
-| Forms and validation | Formik, Yup |
-| HTTP client | Axios |
-| Icons | Tabler Icons (`@tabler/icons-react`) |
-| Notifications | react-hot-toast |
-| Images | `next/image` |
-| Tooling | ESLint, Prettier |
+| Area                 | Technology                                            |
+| -------------------- | ----------------------------------------------------- |
+| Framework            | Next.js 16 (App Router), React 19                     |
+| Language             | TypeScript                                            |
+| Styling              | CSS Modules, modern-normalize                         |
+| Data fetching        | TanStack Query v5 (`useInfiniteQuery` for pagination) |
+| State management     | Zustand v5                                            |
+| Forms and validation | Formik, Yup                                           |
+| HTTP client          | Axios                                                 |
+| Icons                | Tabler Icons (`@tabler/icons-react`)                  |
+| Notifications        | react-hot-toast                                       |
+| Images               | `next/image`                                          |
+| Tooling              | ESLint, Prettier                                      |
 
 Server Components are the default; Client Components are used only where interactivity is required —
 forms, modals, filters and any code depending on TanStack Query or Zustand.
@@ -49,7 +49,7 @@ cd psy-connect
 npm install
 ```
 
-Create a `.env.local` file in the project root:
+Create a `.env.local` file in the project root, using `.env.example` as a reference:
 
 ```bash
 NEXT_PUBLIC_API_URL=https://psy-connect.b.goit.study
@@ -65,12 +65,13 @@ The application is available at http://localhost:3000.
 
 ## Scripts
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start the development server |
-| `npm run build` | Create a production build |
-| `npm run start` | Serve the production build |
-| `npm run lint` | Run ESLint |
+| Command          | Description                       |
+| ---------------- | --------------------------------- |
+| `npm run dev`    | Start the development server      |
+| `npm run build`  | Create a production build         |
+| `npm run start`  | Serve the production build        |
+| `npm run lint`   | Run ESLint                        |
+| `npm run format` | Format the codebase with Prettier |
 
 ## Deployment
 
