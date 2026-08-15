@@ -1,16 +1,12 @@
 import Link from 'next/link';
-import {
-  IconBrandFacebook,
-  IconBrandInstagram,
-  IconBrandLinkedin,
-  IconLeaf,
-} from '@tabler/icons-react';
+import LogoMark from '@/components/LogoMark/LogoMark';
+import { FacebookIcon, InstagramIcon, LinkedinIcon } from './SocialIcons';
 import styles from './Footer.module.css';
 
 const SOCIAL_LINKS = [
-  { label: 'Instagram', href: 'https://www.instagram.com/', Icon: IconBrandInstagram },
-  { label: 'Facebook', href: 'https://www.facebook.com/', Icon: IconBrandFacebook },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/', Icon: IconBrandLinkedin },
+  { label: 'Instagram', href: 'https://www.instagram.com/', Icon: InstagramIcon },
+  { label: 'Facebook', href: 'https://www.facebook.com/', Icon: FacebookIcon },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/', Icon: LinkedinIcon },
 ];
 
 export default function Footer() {
@@ -20,7 +16,7 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
         <Link href="/" className={styles.logo}>
-          <IconLeaf className={styles.logoIcon} size={24} stroke={2} />
+          <LogoMark size={20} />
           PsyConnect
         </Link>
 
@@ -36,7 +32,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label={label}
               >
-                <Icon size={20} stroke={1.75} />
+                <Icon />
               </a>
             </li>
           ))}

@@ -82,6 +82,7 @@
   --layout-max-width: 1440px;
   --layout-min-width: 1024px;
   --layout-gutter: 64px;
+  --footer-gutter: 40px;
   --header-height: 64px;
 
   --transition-fast: 150ms ease;
