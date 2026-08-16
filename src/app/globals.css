@@ -20,6 +20,9 @@
   --color-border-light: #e0e3e1;
   --color-border-subtle: rgba(191, 201, 193, 0.3);
 
+  --color-error: #ba1a1a;
+  --color-error-surface: #ffdad6;
+
   --color-rating: #fbbf24;
   --color-rating-strong: #eab308;
   --color-backdrop: rgba(0, 0, 0, 0.73);

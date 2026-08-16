@@ -8,22 +8,41 @@ type ButtonSize = 'sm' | 'md';
 interface ButtonStyleProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  fullWidth?: boolean;
   className?: string;
 }
 
 type ButtonProps = ButtonStyleProps & ComponentPropsWithoutRef<'button'>;
 type ButtonLinkProps = ButtonStyleProps & ComponentPropsWithoutRef<typeof Link>;
 
-function buttonClassName({ variant = 'primary', size = 'sm', className }: ButtonStyleProps) {
-  return [styles.button, styles[variant], styles[size], className].filter(Boolean).join(' ');
+function buttonClassName({
+  variant = 'primary',
+  size = 'sm',
+  fullWidth,
+  className,
+}: ButtonStyleProps) {
+  return [styles.button, styles[variant], styles[size], fullWidth && styles.fullWidth, className]
+    .filter(Boolean)
+    .join(' ');
 }
 
-export function Button({ variant, size, className, type = 'button', ...props }: ButtonProps) {
+export function Button({
+  variant,
+  size,
+  fullWidth,
+  className,
+  type = 'button',
+  ...props
+}: ButtonProps) {
   return (
-    <button className={buttonClassName({ variant, size, className })} type={type} {...props} />
+    <button
+      className={buttonClassName({ variant, size, fullWidth, className })}
+      type={type}
+      {...props}
+    />
   );
 }
 
-export function ButtonLink({ variant, size, className, ...props }: ButtonLinkProps) {
-  return <Link className={buttonClassName({ variant, size, className })} {...props} />;
+export function ButtonLink({ variant, size, fullWidth, className, ...props }: ButtonLinkProps) {
+  return <Link className={buttonClassName({ variant, size, fullWidth, className })} {...props} />;
 }

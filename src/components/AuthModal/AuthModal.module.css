@@ -1,0 +1,39 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  padding-inline: var(--space-6);
+  text-align: center;
+}
+
+.title {
+  color: var(--color-primary-darkest);
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.footer {
+  margin-top: var(--space-5);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.switch {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-fast);
+}
+
+.switch:hover,
+.switch:focus-visible {
+  color: var(--color-primary-hover);
+}
