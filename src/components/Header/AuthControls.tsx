@@ -4,8 +4,15 @@ import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Avatar, Button } from '@/components/ui';
 import { logout } from '@/lib/api';
+import { queryKeys } from '@/lib/queryKeys';
 import { useAuthStore } from '@/store/authStore';
 import styles from './Header.module.css';
+
+const USER_SCOPED_KEYS = [
+  queryKeys.currentUser.all,
+  queryKeys.favorites.all,
+  queryKeys.session.all,
+];
 
 export default function AuthControls() {
   const router = useRouter();
@@ -20,8 +27,8 @@ export default function AuthControls() {
     mutationFn: logout,
     onSettled: () => {
       clearUser();
-      queryClient.clear();
-      router.push('/');
+      USER_SCOPED_KEYS.forEach((queryKey) => queryClient.removeQueries({ queryKey }));
+      router.replace('/');
     },
   });
 

@@ -9,9 +9,9 @@ interface AuthState {
   isAuthLoading: boolean;
   authModal: AuthModal | null;
   isSignInNoticeOpen: boolean;
+  signInNoticeKey: number;
   setUser: (user: User) => void;
   clearUser: () => void;
-  setAuthLoading: (isAuthLoading: boolean) => void;
   openAuthModal: (authModal: AuthModal) => void;
   closeAuthModal: () => void;
   showSignInNotice: () => void;
@@ -24,11 +24,12 @@ export const useAuthStore = create<AuthState>((set) => ({
   isAuthLoading: true,
   authModal: null,
   isSignInNoticeOpen: false,
+  signInNoticeKey: 0,
   setUser: (user) => set({ user, isLoggedIn: true, isAuthLoading: false }),
   clearUser: () => set({ user: null, isLoggedIn: false, isAuthLoading: false }),
-  setAuthLoading: (isAuthLoading) => set({ isAuthLoading }),
   openAuthModal: (authModal) => set({ authModal, isSignInNoticeOpen: false }),
   closeAuthModal: () => set({ authModal: null }),
-  showSignInNotice: () => set({ isSignInNoticeOpen: true }),
+  showSignInNotice: () =>
+    set((state) => ({ isSignInNoticeOpen: true, signInNoticeKey: state.signInNoticeKey + 1 })),
   hideSignInNotice: () => set({ isSignInNoticeOpen: false }),
 }));

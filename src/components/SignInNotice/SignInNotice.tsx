@@ -12,6 +12,7 @@ const CLOSE_ICON_SIZE = 12;
 
 export default function SignInNotice() {
   const isOpen = useAuthStore((state) => state.isSignInNoticeOpen);
+  const noticeKey = useAuthStore((state) => state.signInNoticeKey);
   const hideSignInNotice = useAuthStore((state) => state.hideSignInNotice);
   const openAuthModal = useAuthStore((state) => state.openAuthModal);
 
@@ -23,40 +24,44 @@ export default function SignInNotice() {
     const timeoutId = setTimeout(hideSignInNotice, AUTO_CLOSE_DELAY);
 
     return () => clearTimeout(timeoutId);
-  }, [isOpen, hideSignInNotice]);
-
-  if (!isOpen) {
-    return null;
-  }
+  }, [isOpen, noticeKey, hideSignInNotice]);
 
   return (
-    <aside className={styles.notice} role="status">
-      <span className={styles.badge}>
-        <IconLock size={LOCK_ICON_SIZE} aria-hidden="true" />
-      </span>
+    <div className={styles.region} role="status">
+      {isOpen && (
+        <aside className={styles.notice}>
+          <span className={styles.badge}>
+            <IconLock size={LOCK_ICON_SIZE} aria-hidden="true" />
+          </span>
 
-      <div className={styles.content}>
-        <div className={styles.head}>
-          <p className={styles.title}>Sign in required</p>
+          <div className={styles.content}>
+            <div className={styles.head}>
+              <p className={styles.title}>Sign in required</p>
 
-          <button
-            type="button"
-            className={styles.close}
-            onClick={hideSignInNotice}
-            aria-label="Close"
-          >
-            <IconX size={CLOSE_ICON_SIZE} />
-          </button>
-        </div>
+              <button
+                type="button"
+                className={styles.close}
+                onClick={hideSignInNotice}
+                aria-label="Close"
+              >
+                <IconX size={CLOSE_ICON_SIZE} />
+              </button>
+            </div>
 
-        <p className={styles.text}>
-          Please log in or create an account to save specialists to your favorites.
-        </p>
+            <p className={styles.text}>
+              Please log in or create an account to save specialists to your favorites.
+            </p>
 
-        <Button variant="outline" className={styles.action} onClick={() => openAuthModal('login')}>
-          Log In
-        </Button>
-      </div>
-    </aside>
+            <Button
+              variant="outline"
+              className={styles.action}
+              onClick={() => openAuthModal('login')}
+            >
+              Log In
+            </Button>
+          </div>
+        </aside>
+      )}
+    </div>
   );
 }

@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import AuthModal from '@/components/AuthModal/AuthModal';
-import AuthModalQuery from '@/components/AuthModal/AuthModalQuery';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import Providers from '@/components/Providers/Providers';
@@ -33,10 +31,6 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
 
           <AuthModal />
           <SignInNotice />
-
-          <Suspense>
-            <AuthModalQuery />
-          </Suspense>
         </Providers>
       </body>
     </html>
