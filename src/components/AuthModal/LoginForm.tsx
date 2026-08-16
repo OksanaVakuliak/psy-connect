@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import toast from 'react-hot-toast';
@@ -28,6 +29,7 @@ export default function LoginForm({ titleId }: LoginFormProps) {
   const setUser = useAuthStore((state) => state.setUser);
   const closeAuthModal = useAuthStore((state) => state.closeAuthModal);
   const openAuthModal = useAuthStore((state) => state.openAuthModal);
+  const isSubmittingRef = useRef(false);
 
   const { mutate, isPending } = useMutation({
     mutationFn: login,
@@ -42,12 +44,22 @@ export default function LoginForm({ titleId }: LoginFormProps) {
           : getErrorMessage(error),
       );
     },
+    onSettled: () => {
+      isSubmittingRef.current = false;
+    },
   });
 
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     validationSchema,
-    onSubmit: (values) => mutate(values),
+    onSubmit: (values) => {
+      if (isSubmittingRef.current) {
+        return;
+      }
+
+      isSubmittingRef.current = true;
+      mutate(values);
+    },
   });
 
   const fieldError = (field: keyof typeof formik.initialValues) =>

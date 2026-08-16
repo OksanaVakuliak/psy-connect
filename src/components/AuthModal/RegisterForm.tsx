@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import toast from 'react-hot-toast';
@@ -34,6 +35,7 @@ export default function RegisterForm({ titleId }: RegisterFormProps) {
   const setUser = useAuthStore((state) => state.setUser);
   const closeAuthModal = useAuthStore((state) => state.closeAuthModal);
   const openAuthModal = useAuthStore((state) => state.openAuthModal);
+  const isSubmittingRef = useRef(false);
 
   const { mutate, isPending } = useMutation({
     mutationFn: register,
@@ -46,12 +48,22 @@ export default function RegisterForm({ titleId }: RegisterFormProps) {
         getErrorStatus(error) === EMAIL_TAKEN_STATUS ? EMAIL_TAKEN_MESSAGE : getErrorMessage(error),
       );
     },
+    onSettled: () => {
+      isSubmittingRef.current = false;
+    },
   });
 
   const formik = useFormik({
     initialValues: { name: '', email: '', password: '' },
     validationSchema,
-    onSubmit: ({ name, email, password }) => mutate({ name: name.trim(), email, password }),
+    onSubmit: ({ name, email, password }) => {
+      if (isSubmittingRef.current) {
+        return;
+      }
+
+      isSubmittingRef.current = true;
+      mutate({ name: name.trim(), email, password });
+    },
   });
 
   const fieldError = (field: keyof typeof formik.initialValues) =>

@@ -46,7 +46,6 @@ export function TextField({ label, error, icon: Icon, type = 'text', ...props }:
             className={styles.toggle}
             onClick={() => setIsRevealed((revealed) => !revealed)}
             aria-label={isRevealed ? 'Hide password' : 'Show password'}
-            aria-pressed={isRevealed}
           >
             {isRevealed ? (
               <IconEyeOff size={TOGGLE_ICON_SIZE} />

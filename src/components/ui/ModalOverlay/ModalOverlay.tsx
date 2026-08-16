@@ -13,10 +13,11 @@ const FOCUSABLE_SELECTOR =
 interface ModalOverlayProps {
   onClose: () => void;
   labelledBy?: string;
+  contentKey?: string;
   children: ReactNode;
 }
 
-export function ModalOverlay({ onClose, labelledBy, children }: ModalOverlayProps) {
+export function ModalOverlay({ onClose, labelledBy, contentKey, children }: ModalOverlayProps) {
   const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,14 +33,16 @@ export function ModalOverlay({ onClose, labelledBy, children }: ModalOverlayProp
       body.style.paddingRight = `${scrollbarWidth}px`;
     }
 
-    boxRef.current?.focus();
-
     return () => {
       body.style.overflow = previousOverflow;
       body.style.paddingRight = previousPaddingRight;
       previouslyFocused?.focus();
     };
   }, []);
+
+  useEffect(() => {
+    boxRef.current?.focus();
+  }, [contentKey]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

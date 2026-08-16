@@ -6,7 +6,6 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-5);
-  overflow-y: auto;
   background-color: var(--color-backdrop);
 }
 

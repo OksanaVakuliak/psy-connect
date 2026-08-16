@@ -16,7 +16,7 @@ export default function AuthModal() {
   }
 
   return (
-    <ModalOverlay onClose={closeAuthModal} labelledBy={TITLE_ID}>
+    <ModalOverlay onClose={closeAuthModal} labelledBy={TITLE_ID} contentKey={authModal}>
       {authModal === 'login' ? (
         <LoginForm titleId={TITLE_ID} />
       ) : (
