@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import AuthModal from '@/components/AuthModal/AuthModal';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import Providers from '@/components/Providers/Providers';
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           <Header />
           <main className={styles.main}>{children}</main>
           <Footer />
+          <AuthModal />
         </Providers>
       </body>
     </html>
