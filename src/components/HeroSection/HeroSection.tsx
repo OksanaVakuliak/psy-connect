@@ -1,25 +1,22 @@
 import Image from 'next/image';
 import {
-  IconArrowRight,
-  IconRosetteDiscountCheck,
-  IconShieldCheck,
-  IconStarFilled,
-} from '@tabler/icons-react';
-import { ButtonLink } from '@/components/ui';
+  ArrowRightIcon,
+  ButtonLink,
+  SealCheckIcon,
+  ShieldCheckIcon,
+  StarIcon,
+} from '@/components/ui';
 import styles from './HeroSection.module.css';
 
 const IMAGE_WIDTH = 632;
 const IMAGE_HEIGHT = 500;
-const TAGLINE_ICON_SIZE = 16;
-const BADGE_ICON_SIZE = 16;
-const ARROW_ICON_SIZE = 12;
 
 export default function HeroSection() {
   return (
     <section className={`container ${styles.hero}`}>
       <div className={styles.content}>
         <p className={styles.tagline}>
-          <IconRosetteDiscountCheck size={TAGLINE_ICON_SIZE} aria-hidden="true" />
+          <SealCheckIcon />
           Your mental health matters
         </p>
 
@@ -32,7 +29,7 @@ export default function HeroSection() {
 
         <ButtonLink href="/psychologists" size="md">
           Get Started
-          <IconArrowRight size={ARROW_ICON_SIZE} aria-hidden="true" />
+          <ArrowRightIcon />
         </ButtonLink>
       </div>
 
@@ -49,14 +46,14 @@ export default function HeroSection() {
 
         <p className={`${styles.badge} ${styles.badgeTop}`}>
           <span className={styles.badgeIcon}>
-            <IconShieldCheck size={BADGE_ICON_SIZE} aria-hidden="true" />
+            <ShieldCheckIcon />
           </span>
           Licensed Specialists
         </p>
 
         <p className={`${styles.badge} ${styles.badgeBottom}`}>
           <span className={`${styles.badgeIcon} ${styles.badgeIconRating}`}>
-            <IconStarFilled size={BADGE_ICON_SIZE} aria-hidden="true" />
+            <StarIcon />
           </span>
           4.8 Average Rating
         </p>
