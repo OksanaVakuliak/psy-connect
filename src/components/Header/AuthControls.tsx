@@ -11,10 +11,6 @@ export default function AuthControls() {
   const clearUser = useAuthStore((state) => state.clearUser);
   const openAuthModal = useAuthStore((state) => state.openAuthModal);
 
-  if (isAuthLoading) {
-    return <div className={styles.placeholder} aria-hidden="true" />;
-  }
-
   if (isLoggedIn && user) {
     return (
       <div className={styles.user}>
@@ -30,7 +26,9 @@ export default function AuthControls() {
   }
 
   return (
-    <div className={styles.authButtons}>
+    <div
+      className={[styles.authButtons, isAuthLoading && styles.pending].filter(Boolean).join(' ')}
+    >
       <Button variant="outline" onClick={() => openAuthModal('login')}>
         Log In
       </Button>

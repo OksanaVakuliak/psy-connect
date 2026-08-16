@@ -31,7 +31,7 @@ export default function Navigation() {
     <nav aria-label="Main">
       <ul className={styles.nav}>
         {links.map(({ href, label, Icon }) => {
-          const isActive = href === '/' ? pathname === href : pathname.startsWith(href);
+          const isActive = pathname === href || pathname.startsWith(`${href}/`);
 
           return (
             <li key={href}>

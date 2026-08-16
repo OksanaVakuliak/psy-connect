@@ -4,6 +4,7 @@
   z-index: 10;
   background-color: color-mix(in srgb, var(--color-surface-muted) 80%, transparent);
   box-shadow: var(--shadow-xs);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 }
 
@@ -54,15 +55,14 @@
   font-weight: var(--font-weight-bold);
 }
 
-.placeholder {
-  width: 176px;
-  height: 38px;
-}
-
 .authButtons {
   display: flex;
   align-items: center;
   gap: var(--space-4);
+}
+
+.pending {
+  visibility: hidden;
 }
 
 .user {
