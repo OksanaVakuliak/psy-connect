@@ -18,6 +18,10 @@
   cursor: not-allowed;
 }
 
+.fullWidth {
+  width: 100%;
+}
+
 .sm {
   min-height: 38px;
   padding: var(--space-2) var(--space-4);
