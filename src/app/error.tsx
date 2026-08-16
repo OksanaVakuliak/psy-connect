@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { Button } from '@/components/ui';
 import styles from './statusPage.module.css';
 
 interface ErrorPageProps {
@@ -17,9 +18,9 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
     <section className={`container ${styles.wrapper}`}>
       <h1>Something went wrong</h1>
       <p className={styles.text}>We could not load this page. Please try again in a moment.</p>
-      <button className={styles.button} type="button" onClick={reset}>
+      <Button className={styles.action} size="md" onClick={reset}>
         Try again
-      </button>
+      </Button>
     </section>
   );
 }

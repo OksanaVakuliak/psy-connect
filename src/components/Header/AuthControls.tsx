@@ -1,12 +1,8 @@
 'use client';
 
-import Image from 'next/image';
-import { IconUser } from '@tabler/icons-react';
+import { Avatar, Button } from '@/components/ui';
 import { useAuthStore } from '@/store/authStore';
 import styles from './Header.module.css';
-
-const AVATAR_SIZE = 32;
-const FALLBACK_ICON_SIZE = 20;
 
 export default function AuthControls() {
   const user = useAuthStore((state) => state.user);
@@ -24,19 +20,7 @@ export default function AuthControls() {
       <div className={styles.user}>
         <p className={styles.welcome}>Welcome, {user.name}</p>
 
-        <span className={styles.avatar}>
-          {user.avatarUrl ? (
-            <Image
-              className={styles.avatarImage}
-              src={user.avatarUrl}
-              alt=""
-              width={AVATAR_SIZE}
-              height={AVATAR_SIZE}
-            />
-          ) : (
-            <IconUser size={FALLBACK_ICON_SIZE} aria-hidden="true" />
-          )}
-        </span>
+        <Avatar src={user.avatarUrl} />
 
         <button type="button" className={styles.logOut} onClick={clearUser}>
           Log Out
@@ -47,12 +31,10 @@ export default function AuthControls() {
 
   return (
     <div className={styles.authButtons}>
-      <button type="button" className={styles.logIn} onClick={() => openAuthModal('login')}>
+      <Button variant="outline" onClick={() => openAuthModal('login')}>
         Log In
-      </button>
-      <button type="button" className={styles.signUp} onClick={() => openAuthModal('register')}>
-        Sign Up
-      </button>
+      </Button>
+      <Button onClick={() => openAuthModal('register')}>Sign Up</Button>
     </div>
   );
 }

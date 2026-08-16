@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { Button } from '@/components/ui';
 import { manrope } from './fonts';
 import 'modern-normalize/modern-normalize.css';
 import './globals.css';
@@ -24,9 +25,9 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
           <p className={styles.text}>
             The application failed to load. Please refresh the page or try again.
           </p>
-          <button className={styles.button} type="button" onClick={reset}>
+          <Button className={styles.action} size="md" onClick={reset}>
             Try again
-          </button>
+          </Button>
         </main>
       </body>
     </html>

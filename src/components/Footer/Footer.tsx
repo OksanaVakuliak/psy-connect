@@ -1,6 +1,4 @@
-import Link from 'next/link';
-import LogoMark from '@/components/LogoMark/LogoMark';
-import { FacebookIcon, InstagramIcon, LinkedinIcon } from './SocialIcons';
+import { FacebookIcon, InstagramIcon, LinkedinIcon, Logo } from '@/components/ui';
 import styles from './Footer.module.css';
 
 const SOCIAL_LINKS = [
@@ -15,10 +13,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
-        <Link href="/" className={styles.logo}>
-          <LogoMark size={20} />
-          PsyConnect
-        </Link>
+        <Logo className={styles.logo} />
 
         <p className={styles.copyright}>&copy; {currentYear} PsyConnect. All rights reserved.</p>
 

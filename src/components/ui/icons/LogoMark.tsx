@@ -3,7 +3,7 @@ interface LogoMarkProps {
   className?: string;
 }
 
-export default function LogoMark({ size = 20, className }: LogoMarkProps) {
+export function LogoMark({ size = 20, className }: LogoMarkProps) {
   return (
     <svg
       className={className}
