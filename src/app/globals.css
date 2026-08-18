@@ -91,19 +91,25 @@
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
 
-  --scrollbar-size: 8px;
+  --scrollbar-size: 6px;
   --scrollbar-thumb: var(--color-primary);
   --scrollbar-thumb-hover: var(--color-primary-hover);
 }
 
-/* Both properties are inherited, so every scroll container in the app picks the scrollbar up. */
 html {
   scroll-behavior: smooth;
-  scrollbar-width: thin;
-  scrollbar-color: var(--scrollbar-thumb) transparent;
 }
 
-/* Fallback for engines without scrollbar-width; ignored where the standard properties apply. */
+/* `scrollbar-width: thin` leaves the exact width to the engine — Chromium reserves 20px for it,
+   which is wider than this design wants. So the width is set through ::-webkit-scrollbar, and the
+   inherited standard properties are left to Firefox, which has no such pseudo-element. */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+}
+
 ::-webkit-scrollbar {
   width: var(--scrollbar-size);
   height: var(--scrollbar-size);
@@ -118,9 +124,9 @@ html {
   display: none;
 }
 
-/* The transparent border keeps the thumb slim and off the edge of its container. */
+/* The transparent border keeps the thumb off the edge of its container. */
 ::-webkit-scrollbar-thumb {
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   border-radius: var(--radius-full);
   background-color: var(--scrollbar-thumb);
   background-clip: content-box;
