@@ -91,7 +91,9 @@
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
 
-  --scrollbar-size: 6px;
+  /* The track is the grab area; the thumb inside it stays thin thanks to --scrollbar-inset. */
+  --scrollbar-size: 10px;
+  --scrollbar-inset: 3px;
   --scrollbar-thumb: var(--color-primary);
   --scrollbar-thumb-hover: var(--color-primary-hover);
 }
@@ -119,14 +121,16 @@ html {
   background-color: transparent;
 }
 
-/* Stepper arrows belong to the system scrollbar, not to this one. */
+/* Collapses the stepper arrows. `display: none` on this part leaves the scrollbar
+   itself unstyled in some engines, so the size is zeroed instead. */
 ::-webkit-scrollbar-button {
-  display: none;
+  width: 0;
+  height: 0;
 }
 
-/* The transparent border keeps the thumb off the edge of its container. */
+/* The transparent border keeps the thumb thin while the whole track stays grabbable. */
 ::-webkit-scrollbar-thumb {
-  border: 1px solid transparent;
+  border: var(--scrollbar-inset) solid transparent;
   border-radius: var(--radius-full);
   background-color: var(--scrollbar-thumb);
   background-clip: content-box;
