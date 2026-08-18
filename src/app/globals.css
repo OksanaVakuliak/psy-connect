@@ -90,10 +90,45 @@
 
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
+
+  --scrollbar-size: 8px;
+  --scrollbar-thumb: var(--color-primary);
+  --scrollbar-thumb-hover: var(--color-primary-hover);
 }
 
+/* Both properties are inherited, so every scroll container in the app picks the scrollbar up. */
 html {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+/* Fallback for engines without scrollbar-width; ignored where the standard properties apply. */
+::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Stepper arrows belong to the system scrollbar, not to this one. */
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* The transparent border keeps the thumb slim and off the edge of its container. */
+::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: var(--radius-full);
+  background-color: var(--scrollbar-thumb);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+  background-clip: content-box;
 }
 
 body {

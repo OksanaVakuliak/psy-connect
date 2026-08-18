@@ -142,34 +142,36 @@ export function FilterDropdown({ label, options, value, onChange }: FilterDropdo
       </button>
 
       {isOpen && (
-        <ul id={listId} className={styles.list} role="listbox" aria-label={label}>
-          {options.map((option, index) => {
-            const isSelected = option === value;
-            const isActive = index === activeIndex;
+        <div className={styles.panel}>
+          <ul id={listId} className={styles.list} role="listbox" aria-label={label}>
+            {options.map((option, index) => {
+              const isSelected = option === value;
+              const isActive = index === activeIndex;
 
-            return (
-              <li
-                key={option}
-                ref={isActive ? activeOptionRef : undefined}
-                id={optionId(index)}
-                className={[
-                  styles.option,
-                  isActive && styles.optionActive,
-                  isSelected && styles.optionSelected,
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
-                role="option"
-                aria-selected={isSelected}
-                onClick={() => select(option)}
-                onMouseMove={() => setActiveIndex(index)}
-              >
-                {option}
-                {isSelected && <CheckIcon />}
-              </li>
-            );
-          })}
-        </ul>
+              return (
+                <li
+                  key={option}
+                  ref={isActive ? activeOptionRef : undefined}
+                  id={optionId(index)}
+                  className={[
+                    styles.option,
+                    isActive && styles.optionActive,
+                    isSelected && styles.optionSelected,
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                  role="option"
+                  aria-selected={isSelected}
+                  onClick={() => select(option)}
+                  onMouseMove={() => setActiveIndex(index)}
+                >
+                  {option}
+                  {isSelected && <CheckIcon />}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       )}
     </div>
   );
