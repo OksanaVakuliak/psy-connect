@@ -1,18 +1,15 @@
+/* Every card keeps the room the badge needs, whether or not it has one, so a
+   row of collapsed cards is one height. 56px is the badge (24px at 16px from
+   the top) plus the 16px that separates it from the content. */
 .card {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  padding: var(--space-6) var(--space-5) var(--space-5);
-  border: 1px solid var(--color-border);
+  padding: 56px var(--space-5) var(--space-5);
   border-radius: var(--radius-lg);
   background-color: var(--color-surface);
   box-shadow: var(--shadow-sm);
-}
-
-/* The badge is pinned above the content, so the card makes room for it. */
-.cardWithBadge {
-  padding-top: 56px;
 }
 
 .badge {
@@ -124,19 +121,61 @@
   padding-bottom: var(--space-2);
 }
 
+/* Collapsed, the row is the two lines the mockup shows; open, it grows to the
+   whole text. Both ends are grid tracks, so the height animates between them. */
 .about {
+  display: grid;
+  grid-template-rows: minmax(calc(2 * var(--text-sm-line)), 0fr);
+  transition: grid-template-rows var(--transition-base);
+}
+
+.aboutOpen {
+  grid-template-rows: minmax(calc(2 * var(--text-sm-line)), 1fr);
+}
+
+.aboutInner {
+  overflow: hidden;
   font-size: var(--text-sm);
   line-height: var(--text-sm-line);
   letter-spacing: var(--text-sm-spacing);
   font-weight: var(--font-weight-medium);
 }
 
+/* The clamp is what puts the ellipsis after the second line, but it also pins
+   the text to that height, which leaves the track nothing to animate. So it is
+   only worn once the card has settled back into its collapsed state. */
 .aboutClamped {
-  composes: about;
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+/* The panel is always mounted, so its share of the card's gap is taken back
+   while it is closed and given back as it opens. */
+.detailsPanel {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin-top: calc(-1 * var(--space-4));
+  transition:
+    grid-template-rows var(--transition-base),
+    margin-top var(--transition-base);
+}
+
+.detailsPanelOpen {
+  grid-template-rows: 1fr;
+  margin-top: 0;
+}
+
+.detailsPanelInner {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about,
+  .detailsPanel {
+    transition: none;
+  }
 }
 
 .details {

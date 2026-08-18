@@ -40,10 +40,16 @@ export default function PsychologistCard({ psychologist }: PsychologistCardProps
   } = psychologist;
 
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const detailsId = useId();
 
+  const toggle = () => {
+    setIsAnimating(true);
+    setIsExpanded((expanded) => !expanded);
+  };
+
   return (
-    <article className={`${styles.card} ${initial_consultation ? styles.cardWithBadge : ''}`}>
+    <article className={styles.card}>
       {initial_consultation && (
         <p className={styles.badge}>
           <GiftIcon />
@@ -92,7 +98,14 @@ export default function PsychologistCard({ psychologist }: PsychologistCardProps
         </div>
       </div>
 
-      <p className={isExpanded ? styles.about : styles.aboutClamped}>{about}</p>
+      <div
+        className={`${styles.about} ${isExpanded ? styles.aboutOpen : ''}`}
+        onTransitionEnd={() => setIsAnimating(false)}
+      >
+        <div className={styles.aboutInner}>
+          <p className={!isExpanded && !isAnimating ? styles.aboutClamped : undefined}>{about}</p>
+        </div>
+      </div>
 
       <ul className={`${styles.tagList} ${styles.conditions}`}>
         {conditions.map((condition) => (
@@ -102,9 +115,12 @@ export default function PsychologistCard({ psychologist }: PsychologistCardProps
         ))}
       </ul>
 
-      {isExpanded && (
-        <PsychologistCardDetails id={detailsId} approaches={approaches} reviews={reviews} />
-      )}
+      {/* The panel stays mounted so both directions of the toggle can animate. */}
+      <div className={`${styles.detailsPanel} ${isExpanded ? styles.detailsPanelOpen : ''}`}>
+        <div className={styles.detailsPanelInner} id={detailsId} inert={!isExpanded}>
+          <PsychologistCardDetails approaches={approaches} reviews={reviews} />
+        </div>
+      </div>
 
       <footer className={styles.footer}>
         <p className={styles.price}>
@@ -116,8 +132,8 @@ export default function PsychologistCard({ psychologist }: PsychologistCardProps
           <Button
             variant="outline"
             aria-expanded={isExpanded}
-            aria-controls={isExpanded ? detailsId : undefined}
-            onClick={() => setIsExpanded((expanded) => !expanded)}
+            aria-controls={detailsId}
+            onClick={toggle}
           >
             {isExpanded ? 'Read less' : 'Read more'}
             <CaretDownIcon className={isExpanded ? styles.caretUp : styles.caret} />

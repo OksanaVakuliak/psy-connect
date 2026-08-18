@@ -14,18 +14,16 @@ function toInitials(reviewer: string): string {
 }
 
 interface PsychologistCardDetailsProps {
-  id: string;
   approaches: string[];
   reviews: Review[];
 }
 
 export default function PsychologistCardDetails({
-  id,
   approaches,
   reviews,
 }: PsychologistCardDetailsProps) {
   return (
-    <div className={styles.details} id={id}>
+    <div className={styles.details}>
       {approaches.length > 0 && (
         <section className={styles.section}>
           <h4 className={styles.approachesLabel}>Therapeutic Approaches</h4>
