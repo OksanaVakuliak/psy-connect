@@ -1,0 +1,22 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
+  gap: var(--space-5);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+/* The mockup's own width, which also keeps the button steady while the spinner
+   stands in for the label. */
+.loadMore {
+  min-width: 260px;
+  border-radius: var(--radius-full);
+}
+
+.seenAll {
+  color: var(--color-text-secondary);
+}

@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import type { PsychologistsQuery } from '@/types';
 import {
   ALL_OPTION,
   APPROACH_OPTIONS,
@@ -55,6 +56,15 @@ function toSearchParams({ specialization, approach, price }: PsychologistFilters
   return params;
 }
 
+// The API only wants the filters that are actually set, so `All` drops out entirely.
+function toQuery({ specialization, approach, price }: PsychologistFilters): PsychologistsQuery {
+  return {
+    ...(specialization !== ALL_OPTION && { specialization }),
+    ...(approach !== ALL_OPTION && { approach }),
+    ...(PRICE_MAX_BY_OPTION[price] !== undefined && { price_max: PRICE_MAX_BY_OPTION[price] }),
+  };
+}
+
 function toHref(pathname: string, query: string): string {
   return query ? `${pathname}?${query}` : pathname;
 }
@@ -104,6 +114,7 @@ export function usePsychologistFilters() {
 
   return {
     filters,
+    query: toQuery(filters),
     hasActiveFilters,
     setSpecialization: (value: string) =>
       applyFilters({ ...filters, specialization: toOption(value, SPECIALIZATION_OPTIONS) }),

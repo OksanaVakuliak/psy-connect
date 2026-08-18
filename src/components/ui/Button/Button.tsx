@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { ComponentPropsWithoutRef } from 'react';
 import styles from './Button.module.css';
 
-type ButtonVariant = 'primary' | 'outline';
+type ButtonVariant = 'primary' | 'outline' | 'outlinePrimary';
 type ButtonSize = 'sm' | 'md';
 
 interface ButtonStyleProps {
