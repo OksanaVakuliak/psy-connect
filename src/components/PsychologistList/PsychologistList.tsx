@@ -34,21 +34,21 @@ export default function PsychologistList() {
     }
   }, [error]);
 
+  const psychologists = data?.pages.flatMap((page) => page.items) ?? [];
+
+  let body;
+
   if (isPending) {
-    return (
+    body = (
       <div className={styles.grid}>
         {SKELETONS.map((skeleton) => (
           <SkeletonCard key={skeleton} />
         ))}
       </div>
     );
-  }
-
-  const psychologists = data?.pages.flatMap((page) => page.items) ?? [];
-
-  // A failed first request leaves nothing to show, so the toast alone would leave a blank page.
-  if (error && psychologists.length === 0) {
-    return (
+  } else if (error && psychologists.length === 0) {
+    // A failed first request leaves nothing to show, so the toast alone would leave a blank page.
+    body = (
       <EmptyState
         icon={<IconAlertTriangle size={EMPTY_STATE_ICON_SIZE} stroke={1.5} />}
         title="Something went wrong"
@@ -60,51 +60,60 @@ export default function PsychologistList() {
         }
       />
     );
-  }
-
-  if (psychologists.length === 0) {
-    return (
+  } else if (psychologists.length === 0) {
+    body = (
       <EmptyState
         icon={<IconSearchOff size={EMPTY_STATE_ICON_SIZE} stroke={1.5} />}
         title="No specialists found"
         description="Try adjusting your filters to find the right specialist for you."
         action={
           <Button size="md" onClick={clearFilters}>
-            Clear filters
+            Clear Filters
           </Button>
         }
       />
+    );
+  } else {
+    body = (
+      <>
+        <div className={styles.grid}>
+          {psychologists.map((psychologist) => (
+            <PsychologistCard key={psychologist._id} psychologist={psychologist} />
+          ))}
+        </div>
+
+        <div className={styles.pagination}>
+          {hasNextPage ? (
+            <Button
+              variant="outlinePrimary"
+              size="md"
+              pill
+              className={styles.loadMore}
+              disabled={isFetchingNextPage}
+              onClick={() => fetchNextPage()}
+            >
+              {isFetchingNextPage ? (
+                <Spinner label="Loading more psychologists" />
+              ) : (
+                'Load more psychologists'
+              )}
+            </Button>
+          ) : (
+            <p className={styles.seenAll}>You&apos;ve seen all specialists.</p>
+          )}
+        </div>
+      </>
     );
   }
 
   return (
     <>
-      <div className={styles.grid}>
-        {psychologists.map((psychologist) => (
-          <PsychologistCard key={psychologist._id} psychologist={psychologist} />
-        ))}
-      </div>
+      {/* The region outlives the skeletons it speaks for, so the wait is announced. */}
+      <p className="visually-hidden" role="status">
+        {isPending ? 'Loading specialists' : ''}
+      </p>
 
-      <div className={styles.pagination}>
-        {hasNextPage ? (
-          <Button
-            variant="outlinePrimary"
-            size="md"
-            pill
-            className={styles.loadMore}
-            disabled={isFetchingNextPage}
-            onClick={() => fetchNextPage()}
-          >
-            {isFetchingNextPage ? (
-              <Spinner label="Loading more psychologists" />
-            ) : (
-              'Load more psychologists'
-            )}
-          </Button>
-        ) : (
-          <p className={styles.seenAll}>You&apos;ve seen all specialists.</p>
-        )}
-      </div>
+      {body}
     </>
   );
 }
