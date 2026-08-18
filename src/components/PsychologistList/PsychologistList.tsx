@@ -17,8 +17,16 @@ const SKELETONS = Array.from({ length: PAGE_SIZE }, (_, index) => index);
 
 export default function PsychologistList() {
   const { query, clearFilters } = usePsychologistFilters();
-  const { data, error, isPending, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
-    usePsychologists(query);
+  const {
+    data,
+    error,
+    isPending,
+    isFetching,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = usePsychologists(query);
 
   useEffect(() => {
     if (error) {
@@ -46,8 +54,8 @@ export default function PsychologistList() {
         title="Something went wrong"
         description={getErrorMessage(error)}
         action={
-          <Button size="md" onClick={() => refetch()}>
-            Try again
+          <Button size="md" disabled={isFetching} onClick={() => refetch()}>
+            {isFetching ? <Spinner label="Retrying" /> : 'Try again'}
           </Button>
         }
       />
@@ -82,6 +90,7 @@ export default function PsychologistList() {
           <Button
             variant="outlinePrimary"
             size="md"
+            pill
             className={styles.loadMore}
             disabled={isFetchingNextPage}
             onClick={() => fetchNextPage()}
