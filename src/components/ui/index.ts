@@ -1,9 +1,13 @@
 export { Avatar } from './Avatar/Avatar';
 export { Button, ButtonLink } from './Button/Button';
+export { FilterDropdown } from './FilterDropdown/FilterDropdown';
 export { Logo } from './Logo/Logo';
 export { ModalOverlay } from './ModalOverlay/ModalOverlay';
 export { TextField } from './TextField/TextField';
 export { ArrowRightIcon } from './icons/ArrowRightIcon';
+export { CheckIcon } from './icons/CheckIcon';
+export { ChevronDownIcon } from './icons/ChevronDownIcon';
+export { FiltersIcon } from './icons/FiltersIcon';
 export { LogoMark } from './icons/LogoMark';
 export { SealCheckIcon } from './icons/SealCheckIcon';
 export { ShieldCheckIcon } from './icons/ShieldCheckIcon';
