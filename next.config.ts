@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
         hostname: 'ftp.goit.study',
         pathname: '/img/**',
       },
+      // Every psychologist avatar the API returns is hosted here.
+      {
+        protocol: 'https',
+        hostname: 'randomuser.me',
+        pathname: '/api/portraits/**',
+      },
     ],
   },
 };
