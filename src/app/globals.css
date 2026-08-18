@@ -90,10 +90,55 @@
 
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
+
+  /* The track is the grab area; the thumb inside it stays thin thanks to --scrollbar-inset. */
+  --scrollbar-size: 10px;
+  --scrollbar-inset: 3px;
+  --scrollbar-thumb: var(--color-primary);
+  --scrollbar-thumb-hover: var(--color-primary-hover);
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* `scrollbar-width: thin` leaves the exact width to the engine — Chromium reserves 20px for it,
+   which is wider than this design wants. So the width is set through ::-webkit-scrollbar, and the
+   inherited standard properties are left to Firefox, which has no such pseudo-element. */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+}
+
+::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Collapses the stepper arrows. `display: none` on this part leaves the scrollbar
+   itself unstyled in some engines, so the size is zeroed instead. */
+::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+}
+
+/* The transparent border keeps the thumb thin while the whole track stays grabbable. */
+::-webkit-scrollbar-thumb {
+  border: var(--scrollbar-inset) solid transparent;
+  border-radius: var(--radius-full);
+  background-color: var(--scrollbar-thumb);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+  background-clip: content-box;
 }
 
 body {
