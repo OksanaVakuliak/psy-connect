@@ -34,6 +34,12 @@
   border-radius: var(--radius-lg);
 }
 
+/* Declared after the sizes so it is the radius that wins, whatever order the
+   stylesheets of the page end up in. */
+.pill {
+  border-radius: var(--radius-full);
+}
+
 .primary {
   background-color: var(--color-primary);
   box-shadow: var(--shadow-button);
@@ -54,4 +60,14 @@
 .outline:focus-visible {
   border-color: var(--color-primary);
   color: var(--color-primary);
+}
+
+.outlinePrimary {
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.outlinePrimary:hover:not(:disabled),
+.outlinePrimary:focus-visible {
+  background-color: var(--color-primary-surface);
 }
