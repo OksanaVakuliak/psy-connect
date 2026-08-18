@@ -25,6 +25,8 @@ export function FilterDropdown({ label, options, value, onChange }: FilterDropdo
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const activeOption = options[activeIndex];
+
   useEffect(() => {
     if (!isOpen) {
       return;
@@ -76,10 +78,10 @@ export function FilterDropdown({ label, options, value, onChange }: FilterDropdo
       case ' ':
         event.preventDefault();
 
-        if (isOpen) {
-          select(options[activeIndex]);
-        } else {
+        if (!isOpen) {
           open();
+        } else if (activeOption !== undefined) {
+          select(activeOption);
         }
         break;
       case 'ArrowDown':

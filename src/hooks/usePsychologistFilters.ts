@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import {
   ALL_OPTION,
@@ -10,11 +11,11 @@ import {
   type PriceOption,
 } from '@/constants/filters';
 
-export const SPECIALIZATION_PARAM = 'specialization';
-export const APPROACH_PARAM = 'approach';
-export const PRICE_MAX_PARAM = 'price_max';
+const SPECIALIZATION_PARAM = 'specialization';
+const APPROACH_PARAM = 'approach';
+const PRICE_MAX_PARAM = 'price_max';
 
-export interface PsychologistFilters {
+interface PsychologistFilters {
   specialization: string;
   approach: string;
   price: PriceOption;
@@ -54,6 +55,19 @@ function toSearchParams({ specialization, approach, price }: PsychologistFilters
   return params;
 }
 
+function toHref(pathname: string, query: string): string {
+  return query ? `${pathname}?${query}` : pathname;
+}
+
+// Compares query strings by content, so only a real difference counts, not the order of the params.
+function sortQuery(query: string): string {
+  const params = new URLSearchParams(query);
+
+  params.sort();
+
+  return params.toString();
+}
+
 export function usePsychologistFilters() {
   const router = useRouter();
   const pathname = usePathname();
@@ -70,12 +84,23 @@ export function usePsychologistFilters() {
     filters.approach !== ALL_OPTION ||
     filters.price !== ALL_OPTION;
 
-  // The query string is rewritten from the filters alone, so pagination never survives a filter change.
-  const applyFilters = (next: PsychologistFilters) => {
-    const query = toSearchParams(next).toString();
+  const currentQuery = searchParams.toString();
+  const filtersQuery = toSearchParams(filters).toString();
 
-    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  const replaceQuery = (query: string) => {
+    router.replace(toHref(pathname, query), { scroll: false });
   };
+
+  // A shared link can carry unknown values or leftovers such as pagination. The UI ignores them,
+  // so the address bar is brought in line with what is actually applied.
+  useEffect(() => {
+    if (sortQuery(currentQuery) !== sortQuery(filtersQuery)) {
+      router.replace(toHref(pathname, filtersQuery), { scroll: false });
+    }
+  }, [currentQuery, filtersQuery, pathname, router]);
+
+  // The query string is rebuilt from the filters alone, so pagination never survives a filter change.
+  const applyFilters = (next: PsychologistFilters) => replaceQuery(toSearchParams(next).toString());
 
   return {
     filters,
@@ -85,6 +110,6 @@ export function usePsychologistFilters() {
     setApproach: (value: string) =>
       applyFilters({ ...filters, approach: toOption(value, APPROACH_OPTIONS) }),
     setPrice: (value: string) => applyFilters({ ...filters, price: toPriceOption(value) }),
-    clearFilters: () => router.replace(pathname, { scroll: false }),
+    clearFilters: () => replaceQuery(''),
   };
 }

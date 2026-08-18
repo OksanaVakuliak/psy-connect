@@ -39,11 +39,16 @@ export default function FilterBar() {
         />
       </div>
 
-      {hasActiveFilters && (
-        <button type="button" className={styles.clear} onClick={clearFilters}>
-          Clear Filters
-        </button>
-      )}
+      {/* Kept mounted so the dropdowns do not resize when the first filter is applied. */}
+      <button
+        type="button"
+        className={[styles.clear, !hasActiveFilters && styles.clearHidden]
+          .filter(Boolean)
+          .join(' ')}
+        onClick={clearFilters}
+      >
+        Clear Filters
+      </button>
     </div>
   );
 }
