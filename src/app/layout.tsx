@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import AuthModal from '@/components/AuthModal/AuthModal';
+import FavoritesLoader from '@/components/FavoritesLoader/FavoritesLoader';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import Providers from '@/components/Providers/Providers';
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       <body>
         <Providers>
           <SessionLoader />
+          <FavoritesLoader />
 
           <Header />
           <main className={styles.main}>{children}</main>
