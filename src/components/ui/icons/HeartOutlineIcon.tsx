@@ -1,8 +1,8 @@
-interface HeartIconProps {
+interface HeartOutlineIconProps {
   className?: string;
 }
 
-export function HeartIcon({ className }: HeartIconProps) {
+export function HeartOutlineIcon({ className }: HeartOutlineIconProps) {
   return (
     <svg
       className={className}

@@ -51,6 +51,10 @@
   color: var(--color-primary);
 }
 
+.favorite:disabled {
+  cursor: default;
+}
+
 .identity {
   display: flex;
   gap: var(--space-4);
