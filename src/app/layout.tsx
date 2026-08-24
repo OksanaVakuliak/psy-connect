@@ -1,5 +1,7 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import AuthModal from '@/components/AuthModal/AuthModal';
+import LoginPrompt from '@/components/AuthModal/LoginPrompt';
 import FavoritesLoader from '@/components/FavoritesLoader/FavoritesLoader';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
@@ -32,6 +34,9 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           <Footer />
 
           <AuthModal />
+          <Suspense fallback={null}>
+            <LoginPrompt />
+          </Suspense>
           <SignInNotice />
         </Providers>
       </body>
