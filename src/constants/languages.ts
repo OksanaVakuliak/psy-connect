@@ -1,4 +1,3 @@
-// The mockup shows spoken languages as two-letter codes, so every language the API returns has one.
 const LANGUAGE_CODES: Record<string, string> = {
   Danish: 'DA',
   English: 'EN',

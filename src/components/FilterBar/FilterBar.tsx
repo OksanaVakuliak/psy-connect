@@ -39,7 +39,6 @@ export default function FilterBar() {
         />
       </div>
 
-      {/* Kept mounted so the dropdowns do not resize when the first filter is applied. */}
       <button
         type="button"
         className={[styles.clear, !hasActiveFilters && styles.clearHidden]

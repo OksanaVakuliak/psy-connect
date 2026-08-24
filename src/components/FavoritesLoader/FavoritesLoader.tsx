@@ -12,8 +12,6 @@ export default function FavoritesLoader() {
   const setFavorites = useFavoritesStore((state) => state.setFavorites);
   const clearFavorites = useFavoritesStore((state) => state.clearFavorites);
 
-  // A restored session seeds this query from the profile it already fetched, so a reload asks for
-  // nothing extra. Logging in later finds an empty cache and loads the list here.
   const { data, error } = useFavorites(isLoggedIn);
 
   useEffect(() => {
@@ -27,8 +25,6 @@ export default function FavoritesLoader() {
     }
   }, [isLoggedIn, data, setFavorites, clearFavorites]);
 
-  // Nothing on screen belongs to this component, so a failed list would leave every heart empty
-  // with no sign that the answer never came.
   useEffect(() => {
     if (error) {
       toast.error(getErrorMessage(error));

@@ -3,7 +3,6 @@ import type { Review } from '@/types';
 import ReviewRating from './ReviewRating';
 import styles from './PsychologistCard.module.css';
 
-// "Anna M." becomes "A.M.", the form the mockup uses inside the reviewer avatar.
 function toInitials(reviewer: string): string {
   const letters = reviewer
     .split(/\s+/)

@@ -24,7 +24,6 @@ export default function FavoriteButton({ psychologistId, name }: FavoriteButtonP
       return;
     }
 
-    // A second click before the answer arrives would race the first one.
     if (isPending) {
       return;
     }
@@ -36,16 +35,12 @@ export default function FavoriteButton({ psychologistId, name }: FavoriteButtonP
     <button
       type="button"
       className={styles.favorite}
-      // The session decides what the click does, so the heart waits for it to be restored. A
-      // request in flight only marks the button busy: disabling it would drop keyboard focus
-      // mid-toggle, and the click it would swallow is ignored either way.
       disabled={isAuthLoading}
       aria-busy={isPending}
       aria-pressed={isFavorite}
       aria-label={isFavorite ? `Remove ${name} from favorites` : `Add ${name} to favorites`}
       onClick={toggle}
     >
-      {/* The mockup marks a saved specialist by filling the same heart, not by recoloring it. */}
       {isFavorite ? <HeartIcon /> : <HeartOutlineIcon />}
     </button>
   );

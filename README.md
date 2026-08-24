@@ -52,7 +52,7 @@ npm install
 Create a `.env.local` file in the project root, using `.env.example` as a reference:
 
 ```bash
-NEXT_PUBLIC_API_URL=https://psy-connect.b.goit.study
+API_URL=https://psy-connect.b.goit.study
 ```
 
 Run the development server:
@@ -76,7 +76,7 @@ The application is available at http://localhost:3000.
 ## Deployment
 
 The project is deployed on Vercel. Push to `main` triggers a production deployment; every pull request gets
-its own preview deployment. `NEXT_PUBLIC_API_URL` must be set in the project environment variables.
+its own preview deployment. `API_URL` must be set in the project environment variables.
 
 ## API
 

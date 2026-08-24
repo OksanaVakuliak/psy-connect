@@ -114,7 +114,6 @@ export default function PsychologistCard({ psychologist }: PsychologistCardProps
         ))}
       </ul>
 
-      {/* The panel stays mounted so both directions of the toggle can animate. */}
       <div className={`${styles.detailsPanel} ${isExpanded ? styles.detailsPanelOpen : ''}`}>
         <div className={styles.detailsPanelInner} id={detailsId} inert={!isExpanded}>
           <PsychologistCardDetails approaches={approaches} reviews={reviews} />
