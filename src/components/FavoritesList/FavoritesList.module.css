@@ -1,0 +1,9 @@
+.grid {
+  composes: grid from '../PsychologistCard/CardGrid.module.css';
+}
+
+/* The mockup draws the empty state around the same heart the cards carry, three times its size. */
+.emptyIcon {
+  width: 67px;
+  height: auto;
+}

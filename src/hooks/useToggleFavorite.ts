@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { addFavorite, getErrorMessage, removeFavorite } from '@/lib/api';
 import { queryKeys } from '@/lib/queryKeys';
 import { useFavoritesStore } from '@/store/favoritesStore';
+import type { Psychologist } from '@/types';
 
 interface ToggleFavoriteVariables {
   id: string;
@@ -27,6 +28,20 @@ export function useToggleFavorite() {
       } else {
         addToFavorites(id);
       }
+
+      const previous = queryClient.getQueryData<Psychologist[]>(queryKeys.favorites.all);
+      const index = previous?.findIndex((psychologist) => psychologist._id === id) ?? -1;
+
+      // The favorites page is built from that cached list, so a dropped specialist has to leave it
+      // now rather than after a round trip.
+      if (isFavorite && previous) {
+        queryClient.setQueryData(
+          queryKeys.favorites.all,
+          previous.filter((psychologist) => psychologist._id !== id),
+        );
+      }
+
+      return { dropped: index === -1 ? undefined : previous?.[index], index };
     },
     // Both endpoints answer with the whole list, so the store follows the server. The cached
     // profiles behind that list are only marked stale: refetching them right now would answer with
@@ -35,11 +50,28 @@ export function useToggleFavorite() {
       setFavorites(ids);
       queryClient.invalidateQueries({ queryKey: queryKeys.favorites.all, refetchType: 'none' });
     },
-    onError: (error, { id, isFavorite }) => {
+    onError: (error, { id, isFavorite }, context) => {
       if (isFavorite) {
         addToFavorites(id);
       } else {
         removeFromFavorites(id);
+      }
+
+      const dropped = context?.dropped;
+
+      // Only this specialist comes back, and close to the place they held. Putting the whole list
+      // back would also undo the clicks that landed while this one was travelling.
+      if (dropped) {
+        queryClient.setQueryData<Psychologist[]>(queryKeys.favorites.all, (current) => {
+          if (!current || current.some((psychologist) => psychologist._id === id)) {
+            return current;
+          }
+
+          const restored = [...current];
+          restored.splice(Math.min(context.index, restored.length), 0, dropped);
+
+          return restored;
+        });
       }
 
       toast.error(getErrorMessage(error));

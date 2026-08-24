@@ -2,10 +2,10 @@
 
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { IconAlertTriangle, IconSearchOff } from '@tabler/icons-react';
+import { IconSearchOff } from '@tabler/icons-react';
 import PsychologistCard from '@/components/PsychologistCard/PsychologistCard';
 import SkeletonCard from '@/components/PsychologistCard/SkeletonCard';
-import { Button, EmptyState, Spinner } from '@/components/ui';
+import { Button, EmptyState, ErrorState, Spinner } from '@/components/ui';
 import { PAGE_SIZE } from '@/constants/filters';
 import { usePsychologistFilters } from '@/hooks/usePsychologistFilters';
 import { usePsychologists } from '@/hooks/usePsychologists';
@@ -47,17 +47,11 @@ export default function PsychologistList() {
       </div>
     );
   } else if (error && psychologists.length === 0) {
-    // A failed first request leaves nothing to show, so the toast alone would leave a blank page.
     body = (
-      <EmptyState
-        icon={<IconAlertTriangle size={EMPTY_STATE_ICON_SIZE} stroke={1.5} />}
-        title="Something went wrong"
+      <ErrorState
         description={getErrorMessage(error)}
-        action={
-          <Button size="md" disabled={isFetching} onClick={() => refetch()}>
-            {isFetching ? <Spinner label="Retrying" /> : 'Try again'}
-          </Button>
-        }
+        isRetrying={isFetching}
+        onRetry={() => refetch()}
       />
     );
   } else if (psychologists.length === 0) {

@@ -10,7 +10,7 @@
 }
 
 .icon {
-  margin-bottom: 56px;
+  margin-bottom: var(--space-6);
   color: var(--color-text-muted);
 }
 

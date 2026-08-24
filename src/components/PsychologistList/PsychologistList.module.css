@@ -1,8 +1,5 @@
 .grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: start;
-  gap: var(--space-5);
+  composes: grid from '../PsychologistCard/CardGrid.module.css';
 }
 
 .pagination {

@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
+import FavoritesList from '@/components/FavoritesList/FavoritesList';
+import FavoritesPageTitle from '@/components/FavoritesPageTitle/FavoritesPageTitle';
 import RequireAuth from '@/components/RequireAuth/RequireAuth';
+import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Favorites',
@@ -8,8 +11,10 @@ export const metadata: Metadata = {
 export default function FavoritesPage() {
   return (
     <RequireAuth>
-      <section className="container">
-        <h1>Favorites</h1>
+      <section className={`container ${styles.page}`}>
+        <FavoritesPageTitle />
+
+        <FavoritesList />
       </section>
     </RequireAuth>
   );
