@@ -13,11 +13,9 @@ import { useFavorites } from '@/hooks/useFavorites';
 import { getErrorMessage } from '@/lib/api';
 import styles from './FavoritesList.module.css';
 
-// The saved list has no page size to borrow, so the wait fills the grid's first row.
 const SKELETONS = [0, 1];
 
 export default function FavoritesList() {
-  // A failed list is announced by FavoritesLoader, which watches the same request from the layout.
   const { data, error, isPending, isFetching, refetch } = useFavorites();
 
   const psychologists = data ?? [];
@@ -66,7 +64,6 @@ export default function FavoritesList() {
 
   return (
     <>
-      {/* The region outlives the skeletons it speaks for, so the wait is announced. */}
       <p className="visually-hidden" role="status">
         {isPending ? 'Loading your favorites' : ''}
       </p>

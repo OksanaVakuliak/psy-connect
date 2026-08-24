@@ -1,7 +1,5 @@
 import styles from './SkeletonCard.module.css';
 
-// Mirrors the collapsed card without the badge, so the list keeps its height
-// when the real cards arrive.
 export default function SkeletonCard() {
   return (
     <div className={styles.card} aria-hidden="true">

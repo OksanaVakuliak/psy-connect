@@ -56,7 +56,6 @@ function toSearchParams({ specialization, approach, price }: PsychologistFilters
   return params;
 }
 
-// The API only wants the filters that are actually set, so `All` drops out entirely.
 function toQuery({ specialization, approach, price }: PsychologistFilters): PsychologistsQuery {
   return {
     ...(specialization !== ALL_OPTION && { specialization }),
@@ -69,7 +68,6 @@ function toHref(pathname: string, query: string): string {
   return query ? `${pathname}?${query}` : pathname;
 }
 
-// Compares query strings by content, so only a real difference counts, not the order of the params.
 function sortQuery(query: string): string {
   const params = new URLSearchParams(query);
 
@@ -101,15 +99,12 @@ export function usePsychologistFilters() {
     router.replace(toHref(pathname, query), { scroll: false });
   };
 
-  // A shared link can carry unknown values or leftovers such as pagination. The UI ignores them,
-  // so the address bar is brought in line with what is actually applied.
   useEffect(() => {
     if (sortQuery(currentQuery) !== sortQuery(filtersQuery)) {
       router.replace(toHref(pathname, filtersQuery), { scroll: false });
     }
   }, [currentQuery, filtersQuery, pathname, router]);
 
-  // The query string is rebuilt from the filters alone, so pagination never survives a filter change.
   const applyFilters = (next: PsychologistFilters) => replaceQuery(toSearchParams(next).toString());
 
   return {

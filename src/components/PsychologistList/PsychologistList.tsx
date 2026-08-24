@@ -102,7 +102,6 @@ export default function PsychologistList() {
 
   return (
     <>
-      {/* The region outlives the skeletons it speaks for, so the wait is announced. */}
       <p className="visually-hidden" role="status">
         {isPending ? 'Loading specialists' : ''}
       </p>

@@ -25,8 +25,6 @@ export default function SessionLoader() {
         const user = await getCurrentUser();
 
         if (isActive) {
-          // The profile already carries the favorites, so FavoritesLoader reads them from here
-          // instead of asking the API for the same list a second time.
           queryClient.setQueryData(queryKeys.favorites.all, user.favorites);
           setUser(user);
         }

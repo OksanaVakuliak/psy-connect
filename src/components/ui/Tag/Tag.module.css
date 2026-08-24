@@ -6,7 +6,6 @@
   white-space: nowrap;
 }
 
-/* Specializations: the only square-cornered tag in the mockup. */
 .solid {
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);

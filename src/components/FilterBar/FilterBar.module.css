@@ -42,7 +42,6 @@
   color: var(--color-primary);
 }
 
-/* Holds its place in the row, and stays out of the tab order and the accessibility tree. */
 .clearHidden {
   visibility: hidden;
 }

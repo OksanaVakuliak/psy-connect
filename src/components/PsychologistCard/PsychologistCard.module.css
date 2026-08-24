@@ -1,6 +1,3 @@
-/* Every card keeps the room the badge needs, whether or not it has one, so a
-   row of collapsed cards is one height. 56px is the badge (24px at 16px from
-   the top) plus the 16px that separates it from the content. */
 .card {
   position: relative;
   display: flex;
@@ -94,8 +91,6 @@
   gap: var(--space-1);
 }
 
-/* A dot separates the meta items. The extra margin turns the 4px gap that
-   follows it into the 12px the mockup keeps around the dot. */
 .metaItem + .metaItem::before {
   content: '';
   width: 4px;
@@ -125,8 +120,6 @@
   padding-bottom: var(--space-2);
 }
 
-/* Collapsed, the row is the two lines the mockup shows; open, it grows to the
-   whole text. Both ends are grid tracks, so the height animates between them. */
 .about {
   display: grid;
   grid-template-rows: minmax(calc(2 * var(--text-sm-line)), 0fr);
@@ -155,8 +148,6 @@
   -webkit-line-clamp: 2;
 }
 
-/* The panel is always mounted, so its share of the card's gap is taken back
-   while it is closed and given back as it opens. */
 .detailsPanel {
   display: grid;
   grid-template-rows: 0fr;

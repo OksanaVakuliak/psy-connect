@@ -91,7 +91,6 @@
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
 
-  /* The track is the grab area; the thumb inside it stays thin thanks to --scrollbar-inset. */
   --scrollbar-size: 10px;
   --scrollbar-inset: 3px;
   --scrollbar-thumb: var(--color-primary);
@@ -128,7 +127,6 @@ html {
   height: 0;
 }
 
-/* The transparent border keeps the thumb thin while the whole track stays grabbable. */
 ::-webkit-scrollbar-thumb {
   border: var(--scrollbar-inset) solid transparent;
   border-radius: var(--radius-full);

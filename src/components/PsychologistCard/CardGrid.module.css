@@ -1,5 +1,3 @@
-/* Both the catalog and the favorites page lay the cards out the same way: two columns, and no
-   card stretched to the height of an expanded neighbour. */
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

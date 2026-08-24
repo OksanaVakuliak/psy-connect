@@ -11,7 +11,6 @@ interface ErrorStateProps {
   onRetry: () => void;
 }
 
-// A failed first request leaves nothing to show, so the toast alone would leave a blank page.
 export function ErrorState({ description, isRetrying, onRetry }: ErrorStateProps) {
   return (
     <EmptyState
