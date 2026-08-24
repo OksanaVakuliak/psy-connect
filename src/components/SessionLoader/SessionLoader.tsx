@@ -1,10 +1,13 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { getCurrentUser, getSession } from '@/lib/api';
+import { queryKeys } from '@/lib/queryKeys';
 import { useAuthStore } from '@/store/authStore';
 
 export default function SessionLoader() {
+  const queryClient = useQueryClient();
   const setUser = useAuthStore((state) => state.setUser);
   const clearUser = useAuthStore((state) => state.clearUser);
 
@@ -22,6 +25,9 @@ export default function SessionLoader() {
         const user = await getCurrentUser();
 
         if (isActive) {
+          // The profile already carries the favorites, so FavoritesLoader reads them from here
+          // instead of asking the API for the same list a second time.
+          queryClient.setQueryData(queryKeys.favorites.all, user.favorites);
           setUser(user);
         }
       } catch {
@@ -36,7 +42,7 @@ export default function SessionLoader() {
     return () => {
       isActive = false;
     };
-  }, [setUser, clearUser]);
+  }, [queryClient, setUser, clearUser]);
 
   return null;
 }

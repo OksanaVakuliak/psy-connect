@@ -16,6 +16,7 @@ export { FiltersIcon } from './icons/FiltersIcon';
 export { GiftIcon } from './icons/GiftIcon';
 export { GlobeIcon } from './icons/GlobeIcon';
 export { HeartIcon } from './icons/HeartIcon';
+export { HeartOutlineIcon } from './icons/HeartOutlineIcon';
 export { LogoMark } from './icons/LogoMark';
 export { SealCheckIcon } from './icons/SealCheckIcon';
 export { ShieldCheckIcon } from './icons/ShieldCheckIcon';

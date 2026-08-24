@@ -8,12 +8,12 @@ import {
   CaretDownIcon,
   GiftIcon,
   GlobeIcon,
-  HeartIcon,
   StarOutlineIcon,
   Tag,
 } from '@/components/ui';
 import { toLanguageCode } from '@/constants/languages';
 import type { Psychologist } from '@/types';
+import FavoriteButton from './FavoriteButton';
 import PsychologistCardDetails from './PsychologistCardDetails';
 import styles from './PsychologistCard.module.css';
 
@@ -25,6 +25,7 @@ interface PsychologistCardProps {
 
 export default function PsychologistCard({ psychologist }: PsychologistCardProps) {
   const {
+    _id,
     name,
     avatar_url,
     specialization,
@@ -57,9 +58,7 @@ export default function PsychologistCard({ psychologist }: PsychologistCardProps
         </p>
       )}
 
-      <button type="button" className={styles.favorite} aria-label={`Add ${name} to favorites`}>
-        <HeartIcon />
-      </button>
+      <FavoriteButton psychologistId={_id} name={name} />
 
       <div className={styles.identity}>
         <Image
