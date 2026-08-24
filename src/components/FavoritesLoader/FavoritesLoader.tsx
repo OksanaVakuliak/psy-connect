@@ -1,10 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { getErrorMessage, getFavorites } from '@/lib/api';
-import { queryKeys } from '@/lib/queryKeys';
+import { useFavorites } from '@/hooks/useFavorites';
+import { getErrorMessage } from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 import { useFavoritesStore } from '@/store/favoritesStore';
 
@@ -15,11 +14,7 @@ export default function FavoritesLoader() {
 
   // A restored session seeds this query from the profile it already fetched, so a reload asks for
   // nothing extra. Logging in later finds an empty cache and loads the list here.
-  const { data, error } = useQuery({
-    queryKey: queryKeys.favorites.all,
-    queryFn: getFavorites,
-    enabled: isLoggedIn,
-  });
+  const { data, error } = useFavorites(isLoggedIn);
 
   useEffect(() => {
     if (!isLoggedIn) {

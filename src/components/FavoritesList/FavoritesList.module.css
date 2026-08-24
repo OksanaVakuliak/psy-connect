@@ -1,0 +1,12 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
+  gap: var(--space-5);
+}
+
+/* The mockup draws the empty state around the same heart the cards carry, three times its size. */
+.emptyIcon {
+  width: 67px;
+  height: auto;
+}
