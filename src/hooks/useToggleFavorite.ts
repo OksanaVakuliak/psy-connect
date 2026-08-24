@@ -28,10 +28,12 @@ export function useToggleFavorite() {
         addToFavorites(id);
       }
     },
-    // Both endpoints answer with the whole list, so the store follows the server.
+    // Both endpoints answer with the whole list, so the store follows the server. The cached
+    // profiles behind that list are only marked stale: refetching them right now would answer with
+    // a list built before the next click and undo it on screen for as long as that answer travels.
     onSuccess: (ids) => {
       setFavorites(ids);
-      queryClient.invalidateQueries({ queryKey: queryKeys.favorites.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.favorites.all, refetchType: 'none' });
     },
     onError: (error, { id, isFavorite }) => {
       if (isFavorite) {
