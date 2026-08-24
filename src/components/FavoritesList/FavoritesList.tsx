@@ -1,34 +1,24 @@
 'use client';
 
-import { useEffect } from 'react';
-import toast from 'react-hot-toast';
-import { IconAlertTriangle } from '@tabler/icons-react';
 import PsychologistCard from '@/components/PsychologistCard/PsychologistCard';
 import SkeletonCard from '@/components/PsychologistCard/SkeletonCard';
 import {
   ArrowRightIcon,
-  Button,
   ButtonLink,
   EmptyState,
+  ErrorState,
   HeartOutlineIcon,
-  Spinner,
 } from '@/components/ui';
 import { useFavorites } from '@/hooks/useFavorites';
 import { getErrorMessage } from '@/lib/api';
 import styles from './FavoritesList.module.css';
 
-const ERROR_ICON_SIZE = 64;
 // The saved list has no page size to borrow, so the wait fills the grid's first row.
 const SKELETONS = [0, 1];
 
 export default function FavoritesList() {
+  // A failed list is announced by FavoritesLoader, which watches the same request from the layout.
   const { data, error, isPending, isFetching, refetch } = useFavorites();
-
-  useEffect(() => {
-    if (error) {
-      toast.error(getErrorMessage(error));
-    }
-  }, [error]);
 
   const psychologists = data ?? [];
 
@@ -43,17 +33,11 @@ export default function FavoritesList() {
       </div>
     );
   } else if (error && psychologists.length === 0) {
-    // A failed request leaves nothing to show, so the toast alone would leave a blank page.
     body = (
-      <EmptyState
-        icon={<IconAlertTriangle size={ERROR_ICON_SIZE} stroke={1.5} />}
-        title="Something went wrong"
+      <ErrorState
         description={getErrorMessage(error)}
-        action={
-          <Button size="md" disabled={isFetching} onClick={() => refetch()}>
-            {isFetching ? <Spinner label="Retrying" /> : 'Try again'}
-          </Button>
-        }
+        isRetrying={isFetching}
+        onRetry={() => refetch()}
       />
     );
   } else if (psychologists.length === 0) {
