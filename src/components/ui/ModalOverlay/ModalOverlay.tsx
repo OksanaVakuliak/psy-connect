@@ -2,22 +2,34 @@
 
 import { useEffect, useRef, type MouseEvent, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { IconX } from '@tabler/icons-react';
+import { ModalCloseButton } from './ModalCloseButton';
 import styles from './ModalOverlay.module.css';
-
-const CLOSE_ICON_SIZE = 14;
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+/**
+ * `card` is the self-contained dialog: the overlay pads the box and puts the close button in its
+ * corner. `panel` is the wider shell for content that brings its own header and footer bars, so it
+ * only draws the box and leaves the padding and the close button to that content.
+ */
+type ModalVariant = 'card' | 'panel';
+
 interface ModalOverlayProps {
   onClose: () => void;
+  variant?: ModalVariant;
   labelledBy?: string;
   contentKey?: string;
   children: ReactNode;
 }
 
-export function ModalOverlay({ onClose, labelledBy, contentKey, children }: ModalOverlayProps) {
+export function ModalOverlay({
+  onClose,
+  variant = 'card',
+  labelledBy,
+  contentKey,
+  children,
+}: ModalOverlayProps) {
   const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,7 +59,12 @@ export function ModalOverlay({ onClose, labelledBy, contentKey, children }: Moda
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        onClose();
+        // A dropdown inside the modal takes Escape for itself by preventing the default, so the
+        // first press closes it and only the next one closes the modal.
+        if (!event.defaultPrevented) {
+          onClose();
+        }
+
         return;
       }
 
@@ -89,15 +106,13 @@ export function ModalOverlay({ onClose, labelledBy, contentKey, children }: Moda
     <div className={styles.backdrop} onMouseDown={handleBackdropMouseDown}>
       <div
         ref={boxRef}
-        className={styles.box}
+        className={`${styles.box} ${styles[variant]}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelledBy}
         tabIndex={-1}
       >
-        <button type="button" className={styles.close} onClick={onClose} aria-label="Close">
-          <IconX size={CLOSE_ICON_SIZE} />
-        </button>
+        {variant === 'card' && <ModalCloseButton onClick={onClose} />}
 
         {children}
       </div>
