@@ -130,7 +130,7 @@ export default function BookingForm({ psychologistId, onSuccess, onCancel }: Boo
             value={formik.values.time}
             error={fieldError('time')}
             onChange={(time) => formik.setFieldValue('time', time)}
-            onClose={() => formik.setFieldTouched('time', true)}
+            onBlur={() => formik.setFieldTouched('time', true)}
           />
         </div>
       </div>
