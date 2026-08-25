@@ -8,11 +8,6 @@ import styles from './ModalOverlay.module.css';
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-/**
- * `card` is the self-contained dialog: the overlay pads the box and puts the close button in its
- * corner. `panel` is the wider shell for content that brings its own header and footer bars, so it
- * only draws the box and leaves the padding and the close button to that content.
- */
 type ModalVariant = 'card' | 'panel';
 
 interface ModalOverlayProps {

@@ -52,8 +52,6 @@ export function DateField({
     triggerRef.current?.focus();
   };
 
-  // Opening the calendar hands focus to a day, which is still inside the field: only focus that
-  // leaves the field altogether counts as the visitor moving on.
   const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
     if (!rootRef.current?.contains(event.relatedTarget)) {
       onBlur?.();
@@ -62,7 +60,6 @@ export function DateField({
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (event.key === 'Escape' && isOpen) {
-      // Leaves the surrounding modal alone: it closes on an Escape nobody has handled yet.
       event.preventDefault();
       close();
     }

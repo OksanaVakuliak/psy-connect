@@ -41,8 +41,6 @@ export function SelectField({
     handleKeyDown,
   } = useListbox({ options, value, onSelect: onChange });
 
-  // Picking an option must not read as leaving the field, so the press never takes focus off the
-  // trigger and `onBlur` fires only once the visitor really moves on.
   const keepFocus = (event: MouseEvent<HTMLUListElement>) => event.preventDefault();
 
   return (

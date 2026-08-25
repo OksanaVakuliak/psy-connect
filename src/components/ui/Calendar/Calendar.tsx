@@ -58,7 +58,6 @@ export function Calendar({ value, min, labelledBy, onSelect, onDismiss }: Calend
     };
 
     if (event.key === 'Escape') {
-      // Leaves the surrounding modal alone: it closes on an Escape nobody has handled yet.
       event.preventDefault();
       onDismiss();
       return;

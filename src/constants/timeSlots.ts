@@ -22,7 +22,6 @@ export const TIME_SLOTS = [
 
 export type TimeSlot = (typeof TIME_SLOTS)[number];
 
-/** `01:30 PM` -> `13:30`, the shape an ISO date-time expects. */
 export function toTwentyFourHourTime(slot: string) {
   const [clock, meridiem] = slot.split(' ');
   const [hours, minutes] = clock.split(':');

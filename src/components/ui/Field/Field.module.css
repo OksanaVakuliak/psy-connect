@@ -60,8 +60,6 @@
   flex-shrink: 0;
 }
 
-/* Buttons living inside the control — the password toggle, the date picker trigger — inherit the
-   control's colour, so the invalid state has to claim their hover back from the default green. */
 .invalid button:hover,
 .invalid button:focus-visible {
   color: var(--color-error);

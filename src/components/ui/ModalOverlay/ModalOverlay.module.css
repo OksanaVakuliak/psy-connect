@@ -15,7 +15,6 @@
 
 .box {
   position: relative;
-  /* The backdrop is what scrolls, so the box never clips the dropdowns that open inside it. */
   flex-shrink: 0;
   max-width: 100%;
   border-radius: var(--radius-lg);
@@ -35,7 +34,6 @@
   box-shadow: var(--shadow-modal);
 }
 
-/* The panel variant seats the close button in its own header, so only the card has to place it. */
 .closeSlot {
   position: absolute;
   top: var(--space-5);

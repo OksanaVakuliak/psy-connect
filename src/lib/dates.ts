@@ -8,10 +8,6 @@ const valueLabelFormat = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
 });
 
-/**
- * Dates travel as the `yyyy-mm-dd` a date input speaks, and they are read back as local days:
- * `new Date('2026-09-11')` would land on the UTC instant and slip a day west of Greenwich.
- */
 export function toDateValue(date: Date) {
   const month = `${date.getMonth() + 1}`.padStart(2, '0');
   const day = `${date.getDate()}`.padStart(2, '0');
@@ -19,6 +15,8 @@ export function toDateValue(date: Date) {
   return `${date.getFullYear()}-${month}-${day}`;
 }
 
+/* `new Date('2026-09-11')` would read the string as a UTC instant and slip a day west of
+   Greenwich, so the parts are handed over one by one and the day stays local. */
 export function fromDateValue(value: string) {
   const [year, month, day] = value.split('-').map(Number);
 
@@ -70,7 +68,6 @@ export function isSameMonth(one: string, other: string) {
   return one.slice(0, 7) === other.slice(0, 7);
 }
 
-/** The six weeks the month is drawn over, each a row of `yyyy-mm-dd`, always starting on Monday. */
 export function monthGrid(value: string) {
   const start = startOfWeek(`${value.slice(0, 7)}-01`);
 

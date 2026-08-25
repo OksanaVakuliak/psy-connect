@@ -8,11 +8,6 @@ interface UseListboxParams {
   onSelect: (option: string) => void;
 }
 
-/**
- * The behaviour every listbox trigger in the library shares: opening on the pointer or the
- * keyboard, walking the options with the arrows, and closing on Escape, Tab or a click outside.
- * Each component keeps its own markup and styling and only borrows this.
- */
 export function useListbox({ options, value, onSelect }: UseListboxParams) {
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -21,8 +16,8 @@ export function useListbox({ options, value, onSelect }: UseListboxParams) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Only the keyboard asks to be followed: scrolling after a hover would drag the option out from
-  // under the pointer, which fires another hover, and the list would never settle.
+  // Scrolling after a hover would drag the option out from under the pointer, which fires another
+  // hover, and the list would never settle. So only the keyboard asks to be followed.
   const shouldRevealActiveRef = useRef(false);
 
   useEffect(() => {
@@ -68,8 +63,6 @@ export function useListbox({ options, value, onSelect }: UseListboxParams) {
     close();
   };
 
-  // Guarded, because an arrow that runs into the end of the list leaves the index alone: the
-  // effect above would never run, and the request to scroll would sit there waiting for a hover.
   const moveActiveTo = (index: number) => {
     if (index === activeIndex) {
       return;
@@ -83,7 +76,6 @@ export function useListbox({ options, value, onSelect }: UseListboxParams) {
     switch (event.key) {
       case 'Escape':
         if (isOpen) {
-          // Keeps a surrounding modal open: it closes only on an Escape nobody has handled yet.
           event.preventDefault();
           close();
         }
