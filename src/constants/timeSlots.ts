@@ -21,3 +21,12 @@ export const TIME_SLOTS = [
 ] as const;
 
 export type TimeSlot = (typeof TIME_SLOTS)[number];
+
+/** `01:30 PM` -> `13:30`, the shape an ISO date-time expects. */
+export function toTwentyFourHourTime(slot: string) {
+  const [clock, meridiem] = slot.split(' ');
+  const [hours, minutes] = clock.split(':');
+  const hour = (Number(hours) % 12) + (meridiem === 'PM' ? 12 : 0);
+
+  return `${String(hour).padStart(2, '0')}:${minutes}`;
+}
