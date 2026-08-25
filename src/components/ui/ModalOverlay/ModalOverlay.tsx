@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type MouseEvent, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { ModalCloseButton } from './ModalCloseButton';
+import { ModalCloseButton } from '../ModalCloseButton/ModalCloseButton';
 import styles from './ModalOverlay.module.css';
 
 const FOCUSABLE_SELECTOR =
@@ -112,7 +112,11 @@ export function ModalOverlay({
         aria-labelledby={labelledBy}
         tabIndex={-1}
       >
-        {variant === 'card' && <ModalCloseButton onClick={onClose} />}
+        {variant === 'card' && (
+          <div className={styles.closeSlot}>
+            <ModalCloseButton onClick={onClose} />
+          </div>
+        )}
 
         {children}
       </div>

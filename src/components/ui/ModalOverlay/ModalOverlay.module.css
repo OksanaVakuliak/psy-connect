@@ -35,27 +35,8 @@
   box-shadow: var(--shadow-modal);
 }
 
-.close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 30px;
-  height: 30px;
-  border-radius: var(--radius-full);
-  color: var(--color-text-secondary);
-  transition:
-    background-color var(--transition-fast),
-    color var(--transition-fast);
-}
-
-.close:hover,
-.close:focus-visible {
-  background-color: var(--color-surface-alt);
-  color: var(--color-primary);
-}
-
-.card .close {
+/* The panel variant seats the close button in its own header, so only the card has to place it. */
+.closeSlot {
   position: absolute;
   top: var(--space-5);
   right: var(--space-5);

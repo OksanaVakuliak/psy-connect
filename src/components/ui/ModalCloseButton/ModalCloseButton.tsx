@@ -1,5 +1,5 @@
 import { IconX } from '@tabler/icons-react';
-import styles from './ModalOverlay.module.css';
+import styles from './ModalCloseButton.module.css';
 
 const CLOSE_ICON_SIZE = 14;
 

@@ -1,11 +1,13 @@
 export { Avatar } from './Avatar/Avatar';
 export { Button, ButtonLink } from './Button/Button';
+export { Calendar } from './Calendar/Calendar';
 export { DateField } from './DateField/DateField';
 export { EmptyState } from './EmptyState/EmptyState';
 export { ErrorState } from './ErrorState/ErrorState';
+export { Field } from './Field/Field';
 export { FilterDropdown } from './FilterDropdown/FilterDropdown';
 export { Logo } from './Logo/Logo';
-export { ModalCloseButton } from './ModalOverlay/ModalCloseButton';
+export { ModalCloseButton } from './ModalCloseButton/ModalCloseButton';
 export { ModalOverlay } from './ModalOverlay/ModalOverlay';
 export { SelectField } from './SelectField/SelectField';
 export { Spinner } from './Spinner/Spinner';

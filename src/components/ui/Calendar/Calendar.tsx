@@ -13,7 +13,7 @@ import {
   startOfWeek,
   today,
 } from '@/lib/dates';
-import styles from './DateField.module.css';
+import styles from './Calendar.module.css';
 
 const WEEKDAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 

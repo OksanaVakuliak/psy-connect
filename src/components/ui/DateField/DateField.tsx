@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState, type FocusEvent, type KeyboardEvent } from 'react';
 import { Field, controlClassName, fieldErrorId } from '../Field/Field';
 import { CalendarIcon } from '../icons/CalendarIcon';
-import { Calendar } from './Calendar';
+import { Calendar } from '../Calendar/Calendar';
 import { dateLabel } from '@/lib/dates';
 import styles from './DateField.module.css';
 
