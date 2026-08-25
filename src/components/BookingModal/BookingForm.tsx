@@ -9,6 +9,7 @@ import { IconMailFilled, IconPhoneFilled } from '@tabler/icons-react';
 import { Button, DateField, SelectField, TextField, UserIcon } from '@/components/ui';
 import { TIME_SLOTS, toTwentyFourHourTime } from '@/constants/timeSlots';
 import { createAppointment, getErrorMessage } from '@/lib/api';
+import { today } from '@/lib/dates';
 import styles from './BookingModal.module.css';
 
 // The mockup draws the same filled person glyph beside all three fields; the filled mail and
@@ -18,13 +19,6 @@ const FIELD_ICON_SIZE = 16;
 const FULL_NAME_PATTERN = /^\S+(?:\s+\S+)+$/;
 const PHONE_PATTERN = /^\+380\d{9}$/;
 const MAX_NAME_LENGTH = 100;
-
-/** Today as the `yyyy-mm-dd` a date input speaks, in the visitor's own time zone rather than UTC. */
-function today() {
-  const now = new Date();
-
-  return new Date(now.getTime() - now.getTimezoneOffset() * 60_000).toISOString().slice(0, 10);
-}
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -124,9 +118,12 @@ export default function BookingForm({ psychologistId, onSuccess, onCancel }: Boo
         <div className={styles.row}>
           <DateField
             label="Date"
+            placeholder="Select date"
+            value={formik.values.date}
             min={today()}
             error={fieldError('date')}
-            {...formik.getFieldProps('date')}
+            onChange={(date) => formik.setFieldValue('date', date)}
+            onBlur={() => formik.setFieldTouched('date', true)}
           />
 
           <SelectField
