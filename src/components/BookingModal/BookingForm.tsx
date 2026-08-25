@@ -33,8 +33,9 @@ const validationSchema = Yup.object({
     .matches(PHONE_PATTERN, 'Phone number must look like +380XXXXXXXXX.')
     .required('Phone number is required.'),
   date: Yup.string()
+    // An empty field is what `required` is for, so the test steps aside and lets it speak.
     .test('not-in-the-past', 'Please pick a date that has not passed.', (value) =>
-      value === undefined ? true : value >= today(),
+      value ? value >= today() : true,
     )
     .required('Date is required.'),
   time: Yup.string().required('Please select a time.'),
