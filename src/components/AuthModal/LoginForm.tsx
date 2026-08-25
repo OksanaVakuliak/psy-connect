@@ -11,6 +11,8 @@ import { getErrorMessage, getErrorStatus, login } from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 import styles from './AuthModal.module.css';
 
+const FIELD_ICON_SIZE = 20;
+
 const INVALID_CREDENTIALS_STATUS = 401;
 const INVALID_CREDENTIALS_MESSAGE = 'Invalid email or password.';
 
@@ -78,7 +80,7 @@ export default function LoginForm({ titleId }: LoginFormProps) {
         <TextField
           label="Email"
           type="email"
-          icon={IconMail}
+          icon={<IconMail size={FIELD_ICON_SIZE} />}
           placeholder="Enter your email"
           autoComplete="email"
           error={fieldError('email')}
@@ -88,7 +90,7 @@ export default function LoginForm({ titleId }: LoginFormProps) {
         <TextField
           label="Enter your password"
           type="password"
-          icon={IconLock}
+          icon={<IconLock size={FIELD_ICON_SIZE} />}
           placeholder="Enter your password"
           autoComplete="current-password"
           error={fieldError('password')}

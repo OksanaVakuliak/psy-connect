@@ -1,35 +1,29 @@
 'use client';
 
-import { useId, useState, type ComponentPropsWithoutRef } from 'react';
-import { IconAlertCircle, IconEye, IconEyeOff, type TablerIcon } from '@tabler/icons-react';
+import { useId, useState, type ComponentPropsWithoutRef, type ReactNode } from 'react';
+import { IconEye, IconEyeOff } from '@tabler/icons-react';
+import { Field, controlClassName, fieldErrorId } from '../Field/Field';
 import styles from './TextField.module.css';
 
-const ICON_SIZE = 20;
 const TOGGLE_ICON_SIZE = 22;
-const ERROR_ICON_SIZE = 16;
 
 interface TextFieldProps extends Omit<ComponentPropsWithoutRef<'input'>, 'id'> {
   label: string;
   error?: string;
-  icon?: TablerIcon;
+  icon?: ReactNode;
 }
 
-export function TextField({ label, error, icon: Icon, type = 'text', ...props }: TextFieldProps) {
+export function TextField({ label, error, icon, type = 'text', ...props }: TextFieldProps) {
   const fieldId = useId();
-  const errorId = `${fieldId}-error`;
   const [isRevealed, setIsRevealed] = useState(false);
 
   const isPassword = type === 'password';
   const inputType = isPassword && isRevealed ? 'text' : type;
 
   return (
-    <div className={styles.field}>
-      <label className={styles.label} htmlFor={fieldId}>
-        {label}
-      </label>
-
-      <div className={[styles.control, error && styles.invalid].filter(Boolean).join(' ')}>
-        {Icon && <Icon size={ICON_SIZE} aria-hidden="true" />}
+    <Field id={fieldId} label={label} error={error}>
+      <div className={controlClassName({ error })}>
+        {icon}
 
         <input
           {...props}
@@ -37,7 +31,7 @@ export function TextField({ label, error, icon: Icon, type = 'text', ...props }:
           className={styles.input}
           type={inputType}
           aria-invalid={error ? true : undefined}
-          aria-describedby={error ? errorId : undefined}
+          aria-describedby={error ? fieldErrorId(fieldId) : undefined}
         />
 
         {isPassword && (
@@ -55,13 +49,6 @@ export function TextField({ label, error, icon: Icon, type = 'text', ...props }:
           </button>
         )}
       </div>
-
-      {error && (
-        <p className={styles.error} id={errorId}>
-          <IconAlertCircle size={ERROR_ICON_SIZE} aria-hidden="true" />
-          {error}
-        </p>
-      )}
-    </div>
+    </Field>
   );
 }
