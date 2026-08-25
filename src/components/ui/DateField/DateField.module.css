@@ -1,0 +1,37 @@
+.control {
+  position: relative;
+}
+
+.input {
+  flex-grow: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  color: var(--color-text);
+  outline: none;
+}
+
+/* The native picker button is stretched over the whole control and hidden, so a click anywhere in
+   the field opens the calendar while the icon from the mockup is what the user actually sees. */
+.input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+/* Firefox draws its own picker button and gives no way to hide it, so there the mockup icon is
+   dropped instead of doubling up. */
+@supports not selector(::-webkit-calendar-picker-indicator) {
+  .icon {
+    display: none;
+  }
+}
