@@ -5,15 +5,13 @@ import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
-import { IconMailFilled, IconPhoneFilled } from '@tabler/icons-react';
+import { IconMail, IconPhone } from '@tabler/icons-react';
 import { Button, DateField, SelectField, TextField, UserIcon } from '@/components/ui';
 import { TIME_SLOTS, toTwentyFourHourTime } from '@/constants/timeSlots';
 import { createAppointment, getErrorMessage } from '@/lib/api';
 import { today } from '@/lib/dates';
 import styles from './BookingModal.module.css';
 
-// The mockup draws the same filled person glyph beside all three fields; the filled mail and
-// phone keep that weight while saying what the field is actually for.
 const FIELD_ICON_SIZE = 16;
 
 const FULL_NAME_PATTERN = /^\S+(?:\s+\S+)+$/;
@@ -98,7 +96,7 @@ export default function BookingForm({ psychologistId, onSuccess, onCancel }: Boo
         <TextField
           label="Email"
           type="email"
-          icon={<IconMailFilled size={FIELD_ICON_SIZE} />}
+          icon={<IconMail size={FIELD_ICON_SIZE} />}
           placeholder="Enter your email"
           autoComplete="email"
           error={fieldError('email')}
@@ -108,7 +106,7 @@ export default function BookingForm({ psychologistId, onSuccess, onCancel }: Boo
         <TextField
           label="Phone Number"
           type="tel"
-          icon={<IconPhoneFilled size={FIELD_ICON_SIZE} />}
+          icon={<IconPhone size={FIELD_ICON_SIZE} />}
           placeholder="Enter your phone number"
           autoComplete="tel"
           error={fieldError('phone')}
