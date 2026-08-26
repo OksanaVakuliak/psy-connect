@@ -7,6 +7,7 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Psychologists',
+  description: 'Browse licensed psychologists and filter them by price, rating and name',
 };
 
 export default async function PsychologistsPage() {
