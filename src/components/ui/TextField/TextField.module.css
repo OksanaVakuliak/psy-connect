@@ -1,0 +1,30 @@
+.icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.input {
+  flex-grow: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  color: var(--color-text);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--color-text-subtle);
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  transition: color var(--transition-fast);
+}
+
+.toggle:hover,
+.toggle:focus-visible {
+  color: var(--color-primary);
+}

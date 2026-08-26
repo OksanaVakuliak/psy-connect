@@ -1,0 +1,16 @@
+.grid {
+  composes: grid from '../PsychologistCard/CardGrid.module.css';
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.loadMore {
+  min-width: 260px;
+}
+
+.seenAll {
+  color: var(--color-text-secondary);
+}

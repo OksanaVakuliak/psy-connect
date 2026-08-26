@@ -1,0 +1,76 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: color-mix(in srgb, var(--color-surface-muted) 80%, transparent);
+  box-shadow: var(--shadow-xs);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  height: var(--header-height);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.navLink,
+.logOut {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm-line);
+  letter-spacing: var(--text-sm-spacing);
+  font-weight: var(--font-weight-medium);
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.navLink:hover,
+.navLink:focus-visible,
+.logOut:hover,
+.logOut:focus-visible {
+  color: var(--color-primary);
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding-bottom: var(--space-1);
+  border-bottom: 1px solid transparent;
+}
+
+.navLinkActive {
+  border-bottom-color: currentColor;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.authButtons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.pending {
+  visibility: hidden;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.welcome {
+  color: var(--color-text);
+}

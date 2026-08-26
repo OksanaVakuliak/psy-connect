@@ -1,0 +1,80 @@
+.region {
+  position: fixed;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  z-index: 40;
+}
+
+.notice {
+  display: flex;
+  gap: var(--space-4);
+  width: 360px;
+  max-width: calc(100vw - var(--space-8));
+  padding: var(--space-4);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  align-self: flex-start;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-darkest);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.title {
+  color: var(--color-text);
+  font-size: var(--text-base);
+  line-height: var(--text-base-line);
+  font-weight: var(--font-weight-bold);
+}
+
+.close {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-top: var(--space-1);
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.close:hover,
+.close:focus-visible {
+  color: var(--color-primary);
+}
+
+.text {
+  margin-bottom: var(--space-3);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm-line);
+  letter-spacing: var(--text-sm-spacing);
+  font-weight: var(--font-weight-medium);
+}
+
+.action {
+  align-self: flex-start;
+}

@@ -1,0 +1,8 @@
+.grid {
+  composes: grid from '../PsychologistCard/CardGrid.module.css';
+}
+
+.emptyIcon {
+  width: 67px;
+  height: auto;
+}

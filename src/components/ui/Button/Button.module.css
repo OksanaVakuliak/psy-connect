@@ -1,0 +1,74 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm-line);
+  letter-spacing: var(--text-sm-spacing);
+  font-weight: var(--font-weight-medium);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.sm {
+  min-height: 38px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+}
+
+.md {
+  min-height: 48px;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-lg);
+}
+
+/* Declared after the sizes so it is the radius that wins, whatever order the
+   stylesheets of the page end up in. */
+.pill {
+  border-radius: var(--radius-full);
+}
+
+.primary {
+  background-color: var(--color-primary);
+  box-shadow: var(--shadow-button);
+  color: var(--color-surface);
+}
+
+.primary:hover:not(:disabled),
+.primary:focus-visible {
+  background-color: var(--color-primary-hover);
+}
+
+.outline {
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.outline:hover:not(:disabled),
+.outline:focus-visible {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.outlinePrimary {
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.outlinePrimary:hover:not(:disabled),
+.outlinePrimary:focus-visible {
+  background-color: var(--color-primary-surface);
+}

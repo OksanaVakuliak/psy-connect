@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: 60vh;
+  padding-block: var(--space-8);
+  text-align: center;
+}
+
+.code {
+  color: var(--color-primary-light);
+  font-size: var(--text-3xl);
+  line-height: var(--text-3xl-line);
+  letter-spacing: var(--text-3xl-spacing);
+  font-weight: var(--font-weight-bold);
+}
+
+.text {
+  max-width: 480px;
+  color: var(--color-text-secondary);
+}
+
+.action {
+  margin-top: var(--space-2);
+}

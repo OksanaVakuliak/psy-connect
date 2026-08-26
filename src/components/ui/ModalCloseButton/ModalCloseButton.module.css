@@ -1,0 +1,19 @@
+.close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.close:hover,
+.close:focus-visible {
+  background-color: var(--color-surface-alt);
+  color: var(--color-primary);
+}
