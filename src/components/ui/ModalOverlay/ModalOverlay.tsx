@@ -54,8 +54,6 @@ export function ModalOverlay({
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        // A dropdown inside the modal takes Escape for itself by preventing the default, so the
-        // first press closes it and only the next one closes the modal.
         if (!event.defaultPrevented) {
           onClose();
         }
@@ -67,7 +65,9 @@ export function ModalOverlay({
         return;
       }
 
-      const focusable = [...boxRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)];
+      const focusable = [
+        ...boxRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+      ].filter((element) => element.tabIndex >= 0);
 
       if (focusable.length === 0) {
         return;
