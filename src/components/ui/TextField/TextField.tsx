@@ -23,7 +23,11 @@ export function TextField({ label, error, icon, type = 'text', ...props }: TextF
   return (
     <Field id={fieldId} label={label} error={error}>
       <div className={controlClassName({ error })}>
-        {icon}
+        {icon && (
+          <span className={styles.icon} aria-hidden="true">
+            {icon}
+          </span>
+        )}
 
         <input
           {...props}

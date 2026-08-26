@@ -1,3 +1,9 @@
+.icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .input {
   flex-grow: 1;
   min-width: 0;
