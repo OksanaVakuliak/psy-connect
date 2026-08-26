@@ -35,6 +35,14 @@ export function Calendar({ value, min, labelledBy, onSelect, onDismiss }: Calend
 
   useEffect(() => {
     gridRef.current?.querySelector<HTMLButtonElement>('[tabindex="0"]')?.focus();
+  }, []);
+
+  useEffect(() => {
+    const grid = gridRef.current;
+
+    if (grid?.contains(document.activeElement)) {
+      grid.querySelector<HTMLButtonElement>('[tabindex="0"]')?.focus();
+    }
   }, [focused]);
 
   const isDisabled = (day: string) => Boolean(min) && day < min!;
@@ -45,7 +53,7 @@ export function Calendar({ value, min, labelledBy, onSelect, onDismiss }: Calend
     }
   };
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLTableElement>) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const moves: Record<string, () => string> = {
       ArrowLeft: () => shiftDays(focused, -1),
       ArrowRight: () => shiftDays(focused, 1),
@@ -72,7 +80,7 @@ export function Calendar({ value, min, labelledBy, onSelect, onDismiss }: Calend
   };
 
   return (
-    <div className={styles.calendar}>
+    <div className={styles.calendar} onKeyDown={handleKeyDown}>
       <div className={styles.month}>
         <button
           type="button"
@@ -97,13 +105,7 @@ export function Calendar({ value, min, labelledBy, onSelect, onDismiss }: Calend
         </button>
       </div>
 
-      <table
-        ref={gridRef}
-        className={styles.grid}
-        role="grid"
-        aria-labelledby={labelledBy}
-        onKeyDown={handleKeyDown}
-      >
+      <table ref={gridRef} className={styles.grid} role="grid" aria-labelledby={labelledBy}>
         <thead>
           <tr>
             {WEEKDAYS.map((weekday) => (
