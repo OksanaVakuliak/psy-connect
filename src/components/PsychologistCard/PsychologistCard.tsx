@@ -11,6 +11,7 @@ import {
   StarOutlineIcon,
   Tag,
 } from '@/components/ui';
+import BookingModal from '@/components/BookingModal/BookingModal';
 import { toLanguageCode } from '@/constants/languages';
 import type { Psychologist } from '@/types';
 import FavoriteButton from './FavoriteButton';
@@ -41,6 +42,7 @@ export default function PsychologistCard({ psychologist }: PsychologistCardProps
   } = psychologist;
 
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const detailsId = useId();
 
@@ -137,9 +139,18 @@ export default function PsychologistCard({ psychologist }: PsychologistCardProps
             <CaretDownIcon className={isExpanded ? styles.caretUp : styles.caret} />
           </Button>
 
-          <Button>Book a session</Button>
+          <Button onClick={() => setIsBookingOpen(true)}>Book a session</Button>
         </div>
       </footer>
+
+      {isBookingOpen && (
+        <BookingModal
+          id={_id}
+          name={name}
+          avatar_url={avatar_url}
+          onClose={() => setIsBookingOpen(false)}
+        />
+      )}
     </article>
   );
 }

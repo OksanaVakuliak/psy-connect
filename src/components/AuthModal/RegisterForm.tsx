@@ -11,6 +11,8 @@ import { getErrorMessage, getErrorStatus, register } from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 import styles from './AuthModal.module.css';
 
+const FIELD_ICON_SIZE = 20;
+
 const EMAIL_TAKEN_STATUS = 409;
 const EMAIL_TAKEN_MESSAGE = 'An account with this email already exists.';
 
@@ -83,7 +85,7 @@ export default function RegisterForm({ titleId }: RegisterFormProps) {
       <form className={styles.form} onSubmit={formik.handleSubmit} noValidate>
         <TextField
           label="Name"
-          icon={IconUser}
+          icon={<IconUser size={FIELD_ICON_SIZE} />}
           placeholder="Enter your name"
           autoComplete="name"
           error={fieldError('name')}
@@ -93,7 +95,7 @@ export default function RegisterForm({ titleId }: RegisterFormProps) {
         <TextField
           label="Email"
           type="email"
-          icon={IconMail}
+          icon={<IconMail size={FIELD_ICON_SIZE} />}
           placeholder="Enter your email"
           autoComplete="email"
           error={fieldError('email')}
@@ -103,7 +105,7 @@ export default function RegisterForm({ titleId }: RegisterFormProps) {
         <TextField
           label="Create a password"
           type="password"
-          icon={IconLock}
+          icon={<IconLock size={FIELD_ICON_SIZE} />}
           placeholder="Enter your password"
           autoComplete="new-password"
           error={fieldError('password')}

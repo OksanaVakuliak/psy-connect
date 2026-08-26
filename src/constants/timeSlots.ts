@@ -21,3 +21,11 @@ export const TIME_SLOTS = [
 ] as const;
 
 export type TimeSlot = (typeof TIME_SLOTS)[number];
+
+export function toTwentyFourHourTime(slot: string) {
+  const [clock, meridiem] = slot.split(' ');
+  const [hours, minutes] = clock.split(':');
+  const hour = (Number(hours) % 12) + (meridiem === 'PM' ? 12 : 0);
+
+  return `${String(hour).padStart(2, '0')}:${minutes}`;
+}

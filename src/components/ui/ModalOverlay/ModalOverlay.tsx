@@ -2,22 +2,29 @@
 
 import { useEffect, useRef, type MouseEvent, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { IconX } from '@tabler/icons-react';
+import { ModalCloseButton } from '../ModalCloseButton/ModalCloseButton';
 import styles from './ModalOverlay.module.css';
-
-const CLOSE_ICON_SIZE = 14;
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+type ModalVariant = 'card' | 'panel';
+
 interface ModalOverlayProps {
   onClose: () => void;
+  variant?: ModalVariant;
   labelledBy?: string;
   contentKey?: string;
   children: ReactNode;
 }
 
-export function ModalOverlay({ onClose, labelledBy, contentKey, children }: ModalOverlayProps) {
+export function ModalOverlay({
+  onClose,
+  variant = 'card',
+  labelledBy,
+  contentKey,
+  children,
+}: ModalOverlayProps) {
   const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,7 +54,10 @@ export function ModalOverlay({ onClose, labelledBy, contentKey, children }: Moda
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        onClose();
+        if (!event.defaultPrevented) {
+          onClose();
+        }
+
         return;
       }
 
@@ -55,7 +65,9 @@ export function ModalOverlay({ onClose, labelledBy, contentKey, children }: Moda
         return;
       }
 
-      const focusable = [...boxRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)];
+      const focusable = [
+        ...boxRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+      ].filter((element) => element.tabIndex >= 0);
 
       if (focusable.length === 0) {
         return;
@@ -89,15 +101,17 @@ export function ModalOverlay({ onClose, labelledBy, contentKey, children }: Moda
     <div className={styles.backdrop} onMouseDown={handleBackdropMouseDown}>
       <div
         ref={boxRef}
-        className={styles.box}
+        className={`${styles.box} ${styles[variant]}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelledBy}
         tabIndex={-1}
       >
-        <button type="button" className={styles.close} onClick={onClose} aria-label="Close">
-          <IconX size={CLOSE_ICON_SIZE} />
-        </button>
+        {variant === 'card' && (
+          <div className={styles.closeSlot}>
+            <ModalCloseButton onClick={onClose} />
+          </div>
+        )}
 
         {children}
       </div>

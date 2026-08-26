@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
+import { useId } from 'react';
 import { ALL_OPTION } from '@/constants/filters';
+import { useListbox } from '@/hooks/useListbox';
 import { CheckIcon } from '../icons/CheckIcon';
 import { ChevronDownIcon } from '../icons/ChevronDownIcon';
 import styles from './FilterDropdown.module.css';
@@ -18,109 +19,17 @@ export function FilterDropdown({ label, options, value, onChange }: FilterDropdo
   const listId = `${baseId}-list`;
   const optionId = (index: number) => `${baseId}-option-${index}`;
 
-  const rootRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const activeOptionRef = useRef<HTMLLIElement>(null);
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const activeOption = options[activeIndex];
-
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    const handlePointerDown = (event: PointerEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('pointerdown', handlePointerDown);
-
-    return () => document.removeEventListener('pointerdown', handlePointerDown);
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (isOpen) {
-      activeOptionRef.current?.scrollIntoView({ block: 'nearest' });
-    }
-  }, [isOpen, activeIndex]);
-
-  const open = () => {
-    const selectedIndex = options.indexOf(value);
-
-    setActiveIndex(selectedIndex === -1 ? 0 : selectedIndex);
-    setIsOpen(true);
-  };
-
-  const close = () => {
-    setIsOpen(false);
-    triggerRef.current?.focus();
-  };
-
-  const select = (option: string) => {
-    onChange(option);
-    close();
-  };
-
-  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    switch (event.key) {
-      case 'Escape':
-        if (isOpen) {
-          event.preventDefault();
-          close();
-        }
-        break;
-      case 'Enter':
-      case ' ':
-        event.preventDefault();
-
-        if (!isOpen) {
-          open();
-        } else if (activeOption !== undefined) {
-          select(activeOption);
-        }
-        break;
-      case 'ArrowDown':
-        event.preventDefault();
-
-        if (isOpen) {
-          setActiveIndex((index) => Math.min(index + 1, options.length - 1));
-        } else {
-          open();
-        }
-        break;
-      case 'ArrowUp':
-        event.preventDefault();
-
-        if (isOpen) {
-          setActiveIndex((index) => Math.max(index - 1, 0));
-        } else {
-          open();
-        }
-        break;
-      case 'Home':
-        if (isOpen) {
-          event.preventDefault();
-          setActiveIndex(0);
-        }
-        break;
-      case 'End':
-        if (isOpen) {
-          event.preventDefault();
-          setActiveIndex(options.length - 1);
-        }
-        break;
-      case 'Tab':
-        setIsOpen(false);
-        break;
-      default:
-        break;
-    }
-  };
+  const {
+    isOpen,
+    activeIndex,
+    rootRef,
+    triggerRef,
+    activeOptionRef,
+    toggle,
+    select,
+    hover,
+    handleKeyDown,
+  } = useListbox({ options, value, onSelect: onChange });
 
   return (
     <div ref={rootRef} className={styles.dropdown}>
@@ -128,7 +37,7 @@ export function FilterDropdown({ label, options, value, onChange }: FilterDropdo
         ref={triggerRef}
         type="button"
         className={styles.trigger}
-        onClick={() => (isOpen ? close() : open())}
+        onClick={toggle}
         onKeyDown={handleKeyDown}
         role="combobox"
         aria-label={`${label}: ${value}`}
@@ -146,16 +55,15 @@ export function FilterDropdown({ label, options, value, onChange }: FilterDropdo
           <ul id={listId} className={styles.list} role="listbox" aria-label={label}>
             {options.map((option, index) => {
               const isSelected = option === value;
-              const isActive = index === activeIndex;
 
               return (
                 <li
                   key={option}
-                  ref={isActive ? activeOptionRef : undefined}
+                  ref={index === activeIndex ? activeOptionRef : undefined}
                   id={optionId(index)}
                   className={[
                     styles.option,
-                    isActive && styles.optionActive,
+                    index === activeIndex && styles.optionActive,
                     isSelected && styles.optionSelected,
                   ]
                     .filter(Boolean)
@@ -163,7 +71,7 @@ export function FilterDropdown({ label, options, value, onChange }: FilterDropdo
                   role="option"
                   aria-selected={isSelected}
                   onClick={() => select(option)}
-                  onMouseMove={() => setActiveIndex(index)}
+                  onMouseMove={() => hover(index)}
                 >
                   {option}
                   {isSelected && <CheckIcon />}
