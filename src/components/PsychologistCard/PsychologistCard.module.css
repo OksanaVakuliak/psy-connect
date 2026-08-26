@@ -277,7 +277,9 @@
 .price {
   display: flex;
   align-items: flex-end;
+  flex-shrink: 0;
   gap: var(--space-1);
+  white-space: nowrap;
 }
 
 .priceValue {
