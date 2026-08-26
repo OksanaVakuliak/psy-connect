@@ -4,6 +4,7 @@ import styles from './statusPage.module.css';
 
 export const metadata: Metadata = {
   title: 'Page not found',
+  description: 'This page does not exist or has been moved',
 };
 
 export default function NotFound() {

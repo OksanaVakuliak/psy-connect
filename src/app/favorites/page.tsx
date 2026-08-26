@@ -6,6 +6,7 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Favorites',
+  description: 'The psychologists you saved for later',
 };
 
 export default function FavoritesPage() {
