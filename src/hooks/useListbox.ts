@@ -16,8 +16,6 @@ export function useListbox({ options, value, onSelect }: UseListboxParams) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Scrolling after a hover would drag the option out from under the pointer, which fires another
-  // hover, and the list would never settle. So only the keyboard asks to be followed.
   const shouldRevealActiveRef = useRef(false);
 
   useEffect(() => {

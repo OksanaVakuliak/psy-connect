@@ -97,7 +97,6 @@
   font-weight: var(--font-weight-semibold);
 }
 
-/* Declared last so a picked day keeps its fill over the ring around today. */
 .daySelected,
 .daySelected:hover:not(:disabled) {
   background-color: var(--color-primary);
