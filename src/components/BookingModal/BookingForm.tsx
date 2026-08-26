@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import toast from 'react-hot-toast';
@@ -9,7 +8,7 @@ import { IconMail, IconPhone } from '@tabler/icons-react';
 import { Button, DateField, SelectField, TextField, UserIcon } from '@/components/ui';
 import { TIME_SLOTS, toTwentyFourHourTime } from '@/constants/timeSlots';
 import { createAppointment, getErrorMessage } from '@/lib/api';
-import { today } from '@/lib/dates';
+import { currentTime, today } from '@/lib/dates';
 import styles from './BookingModal.module.css';
 
 const FIELD_ICON_SIZE = 16;
@@ -34,7 +33,11 @@ const validationSchema = Yup.object({
       value ? value >= today() : true,
     )
     .required('Date is required.'),
-  time: Yup.string().required('Please select a time.'),
+  time: Yup.string()
+    .test('not-in-the-past', 'Please pick a time that has not passed.', (value, context) =>
+      value && context.parent.date === today() ? toTwentyFourHourTime(value) > currentTime() : true,
+    )
+    .required('Please select a time.'),
 });
 
 type BookingValues = Yup.InferType<typeof validationSchema>;
@@ -46,27 +49,16 @@ interface BookingFormProps {
 }
 
 export default function BookingForm({ psychologistId, onSuccess, onCancel }: BookingFormProps) {
-  const isSubmittingRef = useRef(false);
-
   const { mutate, isPending } = useMutation({
     mutationFn: createAppointment,
     onSuccess,
     onError: (error) => toast.error(getErrorMessage(error)),
-    onSettled: () => {
-      isSubmittingRef.current = false;
-    },
   });
 
   const formik = useFormik<BookingValues>({
     initialValues: { name: '', email: '', phone: '', date: '', time: '' },
     validationSchema,
     onSubmit: ({ name, email, phone, date, time }) => {
-      if (isSubmittingRef.current) {
-        return;
-      }
-
-      isSubmittingRef.current = true;
-
       mutate({
         name: name.trim(),
         email: email.trim(),

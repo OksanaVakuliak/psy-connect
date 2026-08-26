@@ -15,12 +15,18 @@ export function toDateValue(date: Date) {
   return `${date.getFullYear()}-${month}-${day}`;
 }
 
-/* `new Date('2026-09-11')` would read the string as a UTC instant and slip a day west of
-   Greenwich, so the parts are handed over one by one and the day stays local. */
 export function fromDateValue(value: string) {
   const [year, month, day] = value.split('-').map(Number);
 
   return new Date(year, month - 1, day);
+}
+
+export function currentTime() {
+  const now = new Date();
+  const hours = `${now.getHours()}`.padStart(2, '0');
+  const minutes = `${now.getMinutes()}`.padStart(2, '0');
+
+  return `${hours}:${minutes}`;
 }
 
 export function today() {
@@ -38,7 +44,6 @@ export function shiftMonths(value: string, months: number) {
   const date = fromDateValue(value);
   const day = date.getDate();
 
-  // Setting the month first would let the 31st of a short month roll into the next one.
   date.setDate(1);
   date.setMonth(date.getMonth() + months);
   date.setDate(Math.min(day, new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()));
