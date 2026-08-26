@@ -2,6 +2,8 @@
 
 Web application for finding and booking online sessions with licensed psychologists and therapists.
 
+Live version: https://psy-connect-five.vercel.app
+
 ## About
 
 PsyConnect solves a simple problem: finding a suitable specialist usually means digging through scattered
@@ -20,21 +22,40 @@ Main features:
 
 The interface is desktop-only: the reference layout is 1440px wide and the minimum supported width is 1024px.
 
+## Screenshots
+
+Home page:
+
+![Home page](docs/screenshots/home.png)
+
+Catalog with filters:
+
+![Catalog of specialists](docs/screenshots/catalog.png)
+
+Session booking:
+
+![Session booking modal](docs/screenshots/booking.png)
+
+Favorites:
+
+![Favorites page](docs/screenshots/favorites.png)
+
 ## Tech stack
 
-| Area                 | Technology                                            |
-| -------------------- | ----------------------------------------------------- |
-| Framework            | Next.js 16 (App Router), React 19                     |
-| Language             | TypeScript                                            |
-| Styling              | CSS Modules, modern-normalize                         |
-| Data fetching        | TanStack Query v5 (`useInfiniteQuery` for pagination) |
-| State management     | Zustand v5                                            |
-| Forms and validation | Formik, Yup                                           |
-| HTTP client          | Axios                                                 |
-| Icons                | Tabler Icons (`@tabler/icons-react`)                  |
-| Notifications        | react-hot-toast                                       |
-| Images               | `next/image`                                          |
-| Tooling              | ESLint, Prettier                                      |
+| Area                 | Technology                                                   |
+| -------------------- | ------------------------------------------------------------ |
+| Framework            | Next.js 16 (App Router), React 19                            |
+| Language             | TypeScript                                                   |
+| Styling              | CSS Modules, modern-normalize                                |
+| Data fetching        | TanStack Query v5 (`useInfiniteQuery` for pagination)        |
+| State management     | Zustand v5                                                   |
+| Forms and validation | Formik, Yup                                                  |
+| HTTP client          | Axios                                                        |
+| Icons                | Tabler Icons (`@tabler/icons-react`)                         |
+| Notifications        | react-hot-toast                                              |
+| Images               | `next/image`                                                 |
+| Compiler             | React Compiler (`reactCompiler` enabled in `next.config.ts`) |
+| Tooling              | ESLint, Prettier                                             |
 
 Server Components are the default; Client Components are used only where interactivity is required —
 forms, modals, filters and any code depending on TanStack Query or Zustand.
@@ -65,18 +86,21 @@ The application is available at http://localhost:3000.
 
 ## Scripts
 
-| Command          | Description                       |
-| ---------------- | --------------------------------- |
-| `npm run dev`    | Start the development server      |
-| `npm run build`  | Create a production build         |
-| `npm run start`  | Serve the production build        |
-| `npm run lint`   | Run ESLint                        |
-| `npm run format` | Format the codebase with Prettier |
+| Command                | Description                       |
+| ---------------------- | --------------------------------- |
+| `npm run dev`          | Start the development server      |
+| `npm run build`        | Create a production build         |
+| `npm run start`        | Serve the production build        |
+| `npm run lint`         | Run ESLint                        |
+| `npm run lint:fix`     | Run ESLint and apply fixes        |
+| `npm run format`       | Format the codebase with Prettier |
+| `npm run format:check` | Check formatting without writing  |
 
 ## Deployment
 
-The project is deployed on Vercel. Push to `main` triggers a production deployment; every pull request gets
-its own preview deployment. `API_URL` must be set in the project environment variables.
+The project is deployed on Vercel at https://psy-connect-five.vercel.app. Push to `main` triggers a
+production deployment; every pull request gets its own preview deployment. `API_URL` must be set in the
+project environment variables.
 
 ## API
 
